@@ -1,0 +1,14 @@
+# Minimum environment for running the code.
+name: pawngame
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ipython
+  - jupyterlab
+  - pip
+  - python >= 3.11
+  - pytest
+  - pip:
+      - python-chess
+prefix: /Users/olivne/opt/micromamba/envs/pawngame
