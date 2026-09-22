@@ -365,9 +365,10 @@ Correctness rests on four independent checks.
   optimistic (a claimed win or draw that is really lost must eventually lose a game)
   but not one that is too pessimistic; the exact correctness argument rests on the
   first two checks. Table~\ref{tab:stockfish} reports 100 games against a depth-12
-  Stockfish for each $n$ and rule, all run on the same \texttt{n2-highmem-32} used
-  for the solves. From a winning side the tablebase wins all 100 and from a drawing
-  side it never loses; the loss column is zero in every row.
+  Stockfish for each $n$ and rule (the $n=8$ draw excepted, as its winning line
+  coincides with the $n=8$ loss line), all run on the same \texttt{n2-highmem-32}
+  used for the solves. From a winning side the tablebase wins all 100 and from a
+  drawing side it never loses; the loss column is zero in every row.
 \end{enumerate}
 
 \begin{table}[t]
@@ -398,7 +399,8 @@ tablebase on the side it cannot theoretically lose from (the winner's side, or
 White in a drawn game). Stockfish is a move evaluator (never moving a king)
 searching to a fixed depth of $12$ every move---a constant per-position budget;
 the tablebase plays a random optimal move each turn. ``theory'' is the game value
-from that side, ``W/D/L'' the results from the tablebase's viewpoint, and
+from that side (in $\{-1,0,+1\}$, with $0$ a draw), ``W/D/L'' the results from the
+tablebase's viewpoint, and
 ``table'' the size of the perfect-play table it consulted (as in
 Table~\ref{tab:scale}). The loss column is zero throughout: the tablebase wins
 every game from a winning side and never loses from a drawn one. The eight-pawn
@@ -525,9 +527,10 @@ win is the clearest miniature: \nEightLossPVfour
 \caption{The asymmetry that wins. Position from the four-pawn game after
 \texttt{1.b4 a5 2.bxa5 b5 3.axb6}\,e.p.\ \texttt{cxb6 4.a4 b5 5.axb5 d5 6.b6}.
 White's $b$-pawn is passed---no Black pawn stands on the $a$-, $b$-, or $c$-file
-to stop it---and promotes ($b7,b8$). Black's $d$-pawn is \emph{not} passed:
-White's reserve $c2$ and $d2$ hold it (\texttt{6\dots d4 7.b7 d3 8.cxd3}), so
-Black never gets a passer of its own. This is the winning plan throughout:
+to stop it---and is unstoppable ($b7,b8$). Black's $d$-pawn is \emph{not} passed:
+White's reserve $c2$ and $d2$ hold it (\texttt{6\dots d4 7.b7 d3 8.cxd3}), so Black
+loses its last pawn before the $b$-pawn even needs to promote and never gets a
+passer of its own. This is the winning plan throughout:
 sacrifice a wing pawn to make a single outside passer while the remaining pawns
 neutralize Black's counter-pawn---White ends with one passer, Black with none.}
 \label{fig:break}
@@ -637,9 +640,10 @@ Each line is the perfect game from the left-justified start under optimal play b
 both sides. Notation: a straight push is written as its destination square; a
 diagonal move is a capture \texttt{<file>x<dest>}, with \texttt{e.p.} for en
 passant; $\ddagger$ marks the touchdown that ends the game. White's moves are
-numbered. Lines that end without a $\ddagger$ terminate by the side to move having
-no legal move (a loss under the loss rule; the value in Table~\ref{tab:results}
-gives the outcome).
+numbered. A line that ends without a $\ddagger$ terminates either by the capture of
+the opponent's last pawn (a win under both rulesets) or by the side to move having
+no legal move (a stalemate, scored by the ruleset in force); the value in
+Table~\ref{tab:results} gives the outcome.
 
 \newcommand{\pvitem}[2]{\item[$n=#1$]\ #2}
 
