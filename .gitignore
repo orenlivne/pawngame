@@ -174,3 +174,18 @@ cython_debug/
 *.out
 *.synctex.gz
 /paper/pawngame.pdf
+
+# compiled pawn-game solver binaries (build with 'make')
+/src/cpp/pawnsolver
+/src/cpp/pawnsolver_ab
+/src/cpp/pawnsolver_ep
+/src/cpp/pawnsolver_par
+/src/cpp/pawnsolver_srv
+
+# IDE / OS / notebook cruft
+.idea/
+.ipynb_checkpoints/
+.DS_Store
+
+# built journal-styled PDF (source is the .tex)
+/submission/pawngame_sage.pdf

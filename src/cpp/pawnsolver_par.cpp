@@ -534,6 +534,11 @@ int main(int argc, char** argv) {
             if (line.rfind("seed ", 0) == 0) { rng = strtoull(line.c_str() + 5, nullptr, 10) | 1ULL; std::cout << "ok" << std::endl; continue; }
             if (line == "quit") break;
             if (line.empty()) continue;
+            // "eval <fen>" -> the exact value from the side to move (+1/0/-1).
+            if (line.rfind("eval ", 0) == 0) {
+                Board eb = parse_fen(line.substr(5));
+                std::cout << s.solve(eb, -2, 2) << std::endl; continue;
+            }
             // "opts <fen>" -> all value-preserving moves; "<fen>" -> one random one.
             bool want_opts = (line.rfind("opts ", 0) == 0);
             Board pb = parse_fen(want_opts ? line.substr(5) : line);
