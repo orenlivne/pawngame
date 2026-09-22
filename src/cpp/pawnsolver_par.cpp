@@ -502,6 +502,13 @@ int main(int argc, char** argv) {
     if (want_pv) {
         printf("optimal_first_moves: %s\n", s.optimal_first_moves(b, v).c_str());
         printf("pv: %s\n", s.principal_variation(b).c_str());
+        // A line for each optimal first move (e.g. both 1.c4 and 1.b4 at n=8).
+        uint16_t fm[64]; int nfm = gen_moves(b, fm);
+        for (int i = 0; i < nfm; ++i) {
+            int cv = is_touchdown(fm[i]) ? 1 : -s.solve(apply_move(b, fm[i]), -2, 2);
+            if (cv == v) printf("pvfirst %s: %s %s\n", Solver::uci(fm[i]).c_str(),
+                                Solver::uci(fm[i]).c_str(), s.principal_variation(apply_move(b, fm[i])).c_str());
+        }
     }
 
     if (serve) {
@@ -516,7 +523,9 @@ int main(int argc, char** argv) {
             if (line.rfind("seed ", 0) == 0) { rng = strtoull(line.c_str() + 5, nullptr, 10) | 1ULL; std::cout << "ok" << std::endl; continue; }
             if (line == "quit") break;
             if (line.empty()) continue;
-            Board pb = parse_fen(line);
+            // "opts <fen>" -> all value-preserving moves; "<fen>" -> one random one.
+            bool want_opts = (line.rfind("opts ", 0) == 0);
+            Board pb = parse_fen(want_opts ? line.substr(5) : line);
             if (opp_pawns(pb) == 0 || my_pawns(pb) == 0) { std::cout << "terminal" << std::endl; continue; }
             uint16_t moves[64];
             int nm = gen_moves(pb, moves);
@@ -529,8 +538,13 @@ int main(int argc, char** argv) {
                 else { Board c = apply_move(pb, moves[i]); cv = -s.solve(c, -2, 2); }
                 if (cv == pv2) opts.push_back(moves[i]);
             }
-            uint16_t mv = opts[next_rand() % opts.size()];
-            std::cout << Solver::uci(mv) << std::endl;
+            if (want_opts) {
+                std::string out;
+                for (uint16_t m : opts) { if (!out.empty()) out += " "; out += Solver::uci(m); }
+                std::cout << out << std::endl;
+            } else {
+                std::cout << Solver::uci(opts[next_rand() % opts.size()]) << std::endl;
+            }
         }
         return 0;
     }

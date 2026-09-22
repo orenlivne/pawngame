@@ -19,7 +19,8 @@ from .positions import pawn_game_fen
 from .play_stockfish import open_stockfish, terminal_result
 from .play_batch import sf_move_fast
 
-CPP = "/Users/oren/code/chess/pawngame/src/cpp/pawnsolver_srv"
+import os
+CPP = os.environ.get("PAWN_SRV", "/Users/oren/code/chess/pawngame/src/cpp/pawnsolver_srv")
 
 
 class Server:
@@ -78,14 +79,24 @@ def main():
     ap.add_argument("--games", type=int, default=100)
     ap.add_argument("--depth", type=int, default=12)
     ap.add_argument("--extra", default="--colorsym --minsub=16 --bits=30 --threads=6")
+    ap.add_argument("--side", default="auto", choices=["auto", "both", "white", "black"])
     args = ap.parse_args()
     sl = args.rule == "loss"
     server = Server(args.n, args.rule, args.extra.split())
     vwhite = server.value
     engine = open_stockfish()
     limit = chess.engine.Limit(depth=args.depth)
+    # "auto": the tablebase plays a side it is not theoretically losing from -- the
+    # winner's side if decisive, else White (a draw). This is the side on which a
+    # perfect player must never lose.
+    if args.side == "auto":
+        sides = [(WHITE if vwhite >= 0 else BLACK, "W" if vwhite >= 0 else "B")]
+    elif args.side == "both":
+        sides = [(WHITE, "W"), (BLACK, "B")]
+    else:
+        sides = [(WHITE, "W")] if args.side == "white" else [(BLACK, "B")]
     try:
-        for side, name in [(WHITE, "W"), (BLACK, "B")]:
+        for side, name in sides:
             gval = vwhite if side == WHITE else -vwhite
             W = D = L = 0
             for g in range(args.games):
