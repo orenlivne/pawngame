@@ -168,3 +168,9 @@ cython_debug/
 *.pkl
 .DS_Store
 .idea/
+/src/cpp/pawnsolver_srv
+/src/cpp/pawnsolver_ep
+*.aux
+*.out
+*.synctex.gz
+/paper/pawngame.pdf
