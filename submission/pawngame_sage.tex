@@ -1,7 +1,5 @@
-\documentclass[11pt]{article}
+\documentclass[Afour,sagev,times]{sagej}
 
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
 \usepackage{tikz}
 \usepackage{xskak}      % chess diagrams from FEN (loads the chessboard package)
@@ -65,12 +63,16 @@ capture before the passer even needs to promote.}
 \newcommand{\pgsm}[2]{\chessboard[setfen={#1}, showmover=false, boardfontsize=7pt,
   label=false, pgfstyle=straightmove, color=red, linewidth=0.12em, markmoves={#2}]}
 
-\title{Exact Solution of the Pawn Game for up to Eight Pawns per Side}
-\author{}
-\date{}
-
 \begin{document}
-\maketitle
+
+\runninghead{Livne}
+
+\title{Exact Solution of the Pawn Game for up to Eight Pawns per Side}
+
+\author{Oren Livne\affilnum{1}}
+\affiliation{\affilnum{1}Affiliation to be provided (corresponding author details below)}
+\corrauth{Oren Livne.}
+\email{oren.livne@gmail.com}
 
 \begin{abstract}
 The pawn game is chess played with pawns only: each side starts with $n$ pawns
@@ -95,6 +97,11 @@ is further stress-tested by a play-test in which the tablebase never loses to
 Stockfish from a non-losing side. A section aimed at chess players interprets the
 solution.
 \end{abstract}
+
+\keywords{pawn game; exact game solving; combinatorial game theory; passed-pawn
+race; en passant; alpha--beta search; transposition table; chess endgames}
+
+\maketitle
 
 \section{Introduction}
 
@@ -372,7 +379,7 @@ Correctness rests on four independent checks.
   drawing side it never loses; the loss column is zero in every row.
 \end{enumerate}
 
-\begin{table}[t]
+\begin{table*}
 \centering\small
 \begin{tabular}{r l c c c r}
 \toprule
@@ -408,7 +415,7 @@ every game from a winning side and never loses from a drawn one. The eight-pawn
 draw is not listed separately: White's winning line there is identical to the
 $n=8$ loss promotion line (Appendix~\ref{app:pv}).}
 \label{tab:stockfish}
-\end{table}
+\end{table*}
 
 \section{Results}\label{sec:results}
 
@@ -418,7 +425,7 @@ $n=1,\dots,8$ is \resLoss: White wins for every $n\ge 6$ and for $n=4$. Under th
 draw rule wins are rarer, and $n=7$ differs between the rulesets---White's
 seven-pawn win is a stalemate win, which only the loss rule scores as a win.
 
-\begin{table}[t]
+\begin{table*}
 \centering
 \begin{tabular}{cccl}
 \toprule
@@ -440,12 +447,12 @@ White, where White wins; these are the same under both rulesets in the cases tha
 White wins under both. For $n=7$ White wins only under the loss rule, and the
 openings shown are its loss-rule winning moves.}
 \label{tab:results}
-\end{table}
+\end{table*}
 
 Figure~\ref{fig:grid} shows the turning point of each of the eight games and how
 its value is decided under both rules.
 
-\begin{figure}[p]
+\begin{figure*}[p]
 \centering
 \setlength{\tabcolsep}{10pt}
 \renewcommand{\arraystretch}{1.0}
@@ -476,13 +483,13 @@ pawn phalanx up yet under the chess rule wins nothing: it can only stalemate Bla
 For $n=3$ the stalemate is instead White's drawing resource under the chess rule,
 while under the game's rule Black wins by leaving White with no pawns.}
 \label{fig:grid}
-\end{figure}
+\end{figure*}
 
 Table~\ref{tab:scale} reports the size of each solve. All values, state counts, and
 wall times come from one setup---a Google Cloud \texttt{n2-highmem-32} instance
 ($32$ vCPUs, $256$\,GB), otherwise idle, each solve run once with all $32$ threads.
 
-\begin{table}[t]
+\begin{table*}
 \centering
 \begin{tabular}{r r r r r r r}
 \toprule
@@ -510,7 +517,7 @@ stores a small fraction of positions more than once, so these counts slightly
 exceed the number of distinct positions and report the memory actually used rather
 than the full reachable set.}
 \label{tab:scale}
-\end{table}
+\end{table*}
 
 \section{What it means to chess players}\label{sec:chess}
 
@@ -577,7 +584,7 @@ a Black win. So en passant is not a stylistic flourish: at $n=4,6,8$ (draw rule)
 $n=7$ (loss rule) it is the only route to White's result, and taking it away changes
 who wins.
 
-\begin{table}[t]
+\begin{table*}
 \centering
 \begin{tabular}{c cc cc}
 \toprule
@@ -602,7 +609,7 @@ each White$\rightarrow$draw) and the seven-pawn game under the loss rule
 break (its $n=4,6,8$ loss-rule wins still promote without en passant) or was not
 winning, so the value is unchanged.}
 \label{tab:noep}
-\end{table}
+\end{table*}
 
 \paragraph{Comparing the two rules classifies each result.} The rulesets differ
 only in whether having no move is a loss or a draw, so comparing them sorts the
