@@ -16,6 +16,7 @@ also win.)
 from __future__ import annotations
 
 import argparse
+import shutil
 
 import chess
 import chess.engine
@@ -24,12 +25,22 @@ from .refboard import RefBoard, WHITE, BLACK, square_name
 from .fastsolver import FastSolver
 from .positions import pawn_game_fen
 
-STOCKFISH_PATHS = ["/opt/homebrew/bin/stockfish", "/usr/local/bin/stockfish", "stockfish"]
+# Common install locations plus PATH; /usr/games/stockfish is Debian/Ubuntu's.
+STOCKFISH_PATHS = [
+    shutil.which("stockfish"),
+    "/opt/homebrew/bin/stockfish",
+    "/usr/local/bin/stockfish",
+    "/usr/games/stockfish",
+    "/usr/bin/stockfish",
+    "stockfish",
+]
 
 
 def open_stockfish():
     last = None
     for p in STOCKFISH_PATHS:
+        if not p:
+            continue
         try:
             return chess.engine.SimpleEngine.popen_uci(p)
         except Exception as e:  # noqa: BLE001

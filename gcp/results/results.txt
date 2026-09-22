@@ -1,0 +1,293 @@
+### MACHINE 32vCPU 251GB Tue Sep 22 11:59:50 UTC 2026
+### SOLVE n=8 rule=draw minsub=64 
+n=8 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=64 threads=32 value=1 (WHITE wins) stored=3611840263 (57.8GB) visits=171715633628 4680.65s (36.7M/s)
+optimal_first_moves: b2b4 c2c4 f2f4 g2g4
+pv: b2b4 a7a5 b4a5 b7b5 a5b6 c7b6 a2a4 b6b5 a4b5 d7d5 b5b6 d5d4 b6b7 d4d3 c2d3 e7e5 b7b8
+pvfirst b2b4: b2b4 a7a5 b4a5 b7b5 a5b6 c7b6 a2a4 b6b5 a4b5 d7d5 b5b6 d5d4 b6b7 d4d3 c2d3 e7e5 b7b8
+pvfirst c2c4: c2c4 a7a5 d2d4 a5a4 b2b4 a4b3 a2b3 b7b5 c4b5 c7c5 b5c6 d7c6 d4d5 c6d5 f2f4 d5d4 f4f5 d4d3 e2d3 e7e5 f5e6 f7e6 g2g4 e6e5 h2h4 e5e4 d3e4 g7g5 h4g5 h7h5 g5h6
+pvfirst f2f4: f2f4 a7a5 a2a4 b7b5 a4b5 a5a4 b5b6 c7b6 f4f5 a4a3 b2a3 b6b5 f5f6 e7f6 c2c4 b5c4 e2e4 c4c3 d2c3 f6f5 e4f5 d7d5 f5f6 g7f6 h2h4 d5d4 c3d4 f6f5 d4d5 f5f4 d5d6 f4f3 g2f3 f7f5 d6d7 f5f4 d7d8
+pvfirst g2g4: g2g4 a7a5 a2a4 b7b5 a4b5 a5a4 b5b6 c7b6 d2d4 a4a3 b2a3 b6b5 d4d5 b5b4 a3b4 e7e5 d5e6 d7e6 b4b5 e6e5 b5b6 e5e4 b6b7 e4e3 f2e3 f7f5 g4f5 g7g5 f5g6 h7g6 b7b8
+### SOLVE n=8 rule=loss minsub=16 
+n=8 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=1547246008 (24.8GB) visits=18267922948 873.10s (20.9M/s)
+optimal_first_moves: b2b4 c2c4 f2f4 g2g4
+pv: b2b4 a7a5 b4a5 b7b5 a5b6 c7b6 a2a4 b6b5 a4b5 d7d5 b5b6 d5d4 b6b7 d4d3 c2d3 e7e5 b7b8
+pvfirst b2b4: b2b4 a7a5 b4a5 b7b5 a5b6 c7b6 a2a4 b6b5 a4b5 d7d5 b5b6 d5d4 b6b7 d4d3 c2d3 e7e5 b7b8
+pvfirst c2c4: c2c4 a7a5 d2d4 a5a4 b2b4 a4b3 a2b3 b7b5 c4b5 c7c5 b5c6 d7c6 d4d5 c6d5 f2f4 d5d4 f4f5 d4d3 e2d3 e7e5 f5e6 f7e6 g2g4 e6e5 g4g5 e5e4 d3e4 h7h5 g5h6 g7h6 e4e5 h6h5 e5e6 h5h4 e6e7 h4h3 e7e8
+pvfirst f2f4: f2f4 a7a5 a2a4 b7b5 a4b5 a5a4 b5b6 c7b6 f4f5 a4a3 b2a3 b6b5 f5f6 e7f6 c2c4 b5c4 e2e4 c4c3 d2c3 f6f5 e4f5 d7d5 f5f6 g7f6 g2g4 d5d4 c3d4 f6f5 g4f5 h7h5 f5f6 h5h4 d4d5 h4h3 d5d6
+pvfirst g2g4: g2g4 a7a5 a2a4 b7b5 a4b5 a5a4 b5b6 c7b6 d2d4 a4a3 b2a3 b6b5 d4d5 b5b4 a3b4 e7e5 d5e6 d7e6 b4b5 e6e5 b5b6 e5e4 b6b7 e4e3 f2e3 f7f5 g4f5 g7g5 f5g6 h7g6 b7b8
+### SOLVE n=1 rule=loss minsub=16 
+n=1 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=-1 (BLACK wins) stored=0 (0.0GB) visits=7 0.00s (0.0M/s)
+optimal_first_moves: a2a3 a2a4
+pv: a2a4 a7a5
+pvfirst a2a3: a2a3 a7a6 a3a4 a6a5
+pvfirst a2a4: a2a4 a7a5
+### SOLVE n=2 rule=loss minsub=16 
+n=2 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=-1 (BLACK wins) stored=3 (0.0GB) visits=230 0.00s (0.1M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 b2b4
+pv: a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 a5a6 b7a6
+pvfirst a2a3: a2a3 b7b5 b2b4 a7a6 a3a4 b5a4 b4b5 a6b5
+pvfirst a2a4: a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 a5a6 b7a6
+pvfirst b2b3: b2b3 a7a5 a2a4 b7b6 b3b4 a5b4 a4a5 b6a5
+pvfirst b2b4: b2b4 b7b5 a2a4 b5a4 b4b5 a4a3 b5b6 a7b6
+### SOLVE n=3 rule=loss minsub=16 
+n=3 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=-1 (BLACK wins) stored=309 (0.0GB) visits=5147 0.00s (1.8M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 b2b4 c2c3 c2c4
+pv: a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 c2b3 c7c5 a5a6 b7a6 b3b4 c5b4
+pvfirst a2a3: a2a3 b7b5 b2b4 a7a6 c2c4 b5c4 b4b5 a6b5 a3a4 b5a4
+pvfirst a2a4: a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 c2b3 c7c5 a5a6 b7a6 b3b4 c5b4
+pvfirst b2b3: b2b3 a7a5 a2a4 c7c6 c2c4 c6c5 b3b4 a5b4 a4a5 b4b3 a5a6 b7a6
+pvfirst b2b4: b2b4 b7b5 a2a4 b5a4 b4b5 a4a3 b5b6 a7b6 c2c4 a3a2 c4c5 b6c5
+pvfirst c2c3: c2c3 b7b5 a2a4 b5a4 b2b4 a4b3 c3c4 b3b2 c4c5 b2b1
+pvfirst c2c4: c2c4 a7a5 c4c5 a5a4 c5c6 b7c6 b2b4 a4b3 a2b3 c6c5 b3b4 c5b4
+### SOLVE n=4 rule=loss minsub=16 
+n=4 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=10016 (0.0GB) visits=126033 0.01s (21.5M/s)
+optimal_first_moves: b2b4 c2c4
+pv: b2b4 a7a5 b4a5 b7b5 a5b6 c7b6 a2a4 b6b5 a4b5 d7d5 b5b6 d5d4 b6b7 d4d3 c2d3
+pvfirst b2b4: b2b4 a7a5 b4a5 b7b5 a5b6 c7b6 a2a4 b6b5 a4b5 d7d5 b5b6 d5d4 b6b7 d4d3 c2d3
+pvfirst c2c4: c2c4 a7a5 c4c5 a5a4 d2d4 a4a3 b2a3 b7b5 c5b6 c7b6 d4d5 b6b5 d5d6 b5b4 a3b4
+### SOLVE n=5 rule=loss minsub=16 
+n=5 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=-1 (BLACK wins) stored=251538 (0.0GB) visits=2831710 0.10s (27.7M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 b2b4 c2c3 c2c4 d2d3 d2d4 e2e3 e2e4
+pv: a2a4 c7c5 a4a5 c5c4 a5a6 b7a6 b2b4 c4b3 c2b3 a6a5 d2d4 a5a4 b3a4 d7d5 a4a5 a7a6 e2e4 d5e4 d4d5 e4e3 d5d6 e7d6
+pvfirst a2a3: a2a3 a7a5 b2b4 a5b4 a3b4 b7b5 c2c4 b5c4 b4b5 c4c3 d2c3 d7d5 b5b6 c7b6 e2e4 d5e4 c3c4 e4e3 c4c5 b6c5
+pvfirst a2a4: a2a4 c7c5 a4a5 c5c4 a5a6 b7a6 b2b4 c4b3 c2b3 a6a5 d2d4 a5a4 b3a4 d7d5 a4a5 a7a6 e2e4 d5e4 d4d5 e4e3 d5d6 e7d6
+pvfirst b2b3: b2b3 b7b5 a2a4 b5a4 b3a4 a7a5 c2c4 c7c5 d2d4 c5d4 c4c5 d4d3 e2d3 e7e5 c5c6 d7c6 d3d4 e5d4
+pvfirst b2b4: b2b4 d7d5 b4b5 d5d4 b5b6 a7b6 a2a4 d4d3 c2d3 e7e5 a4a5 b6a5 e2e4 a5a4 d3d4 e5d4 e4e5 a4a3 e5e6 a3a2 e6e7 a2a1
+pvfirst c2c3: c2c3 b7b5 a2a4 b5a4 b2b4 a4b3 d2d4 b3b2 d4d5 b2b1
+pvfirst c2c4: c2c4 c7c5 a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 a5a6 b7a6 d2d4 c5d4 c4c5 b3b2 c5c6 d7c6 e2e4 d4e3
+pvfirst d2d3: d2d3 c7c5 a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 c2b3 d7d5 a5a6 b7a6 e2e4 d5e4 d3e4 a6a5 e4e5 a5a4 b3a4 c5c4 e5e6 c4c3 a4a5 c3c2 a5a6 c2c1
+pvfirst d2d4: d2d4 b7b5 d4d5 b5b4 d5d6 c7d6 a2a4 b4a3 b2a3 d6d5 c2c4 d5c4 e2e4 c4c3 e4e5 c3c2 e5e6 d7e6 a3a4 c2c1
+pvfirst e2e3: e2e3 b7b5 a2a4 b5a4 b2b4 a4b3 c2b3 a7a5 d2d4 c7c5 d4c5 e7e6 c5c6 d7c6 b3b4 a5b4 e3e4 b4b3 e4e5 b3b2
+pvfirst e2e4: e2e4 a7a5 e4e5 a5a4 e5e6 d7e6 b2b4 a4b3 a2b3 e6e5 c2c4 e5e4 c4c5 e4e3 d2e3 b7b5 c5b6 c7b6 b3b4 b6b5 e3e4 e7e5
+### SOLVE n=6 rule=loss minsub=16 
+n=6 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=5588512 (0.1GB) visits=62736566 2.32s (27.1M/s)
+optimal_first_moves: c2c4 d2d4
+pv: c2c4 a7a5 c4c5 a5a4 d2d4 a4a3 b2a3 b7b5 c5b6 c7b6 d4d5 b6b5 d5d6 e7d6 e2e4 b5b4 a3b4 d6d5 e4d5 f7f5 d5d6 f5f4 b4b5 f4f3 b5b6
+pvfirst c2c4: c2c4 a7a5 c4c5 a5a4 d2d4 a4a3 b2a3 b7b5 c5b6 c7b6 d4d5 b6b5 d5d6 e7d6 e2e4 b5b4 a3b4 d6d5 e4d5 f7f5 d5d6 f5f4 b4b5 f4f3 b5b6
+pvfirst d2d4: d2d4 a7a5 d4d5 a5a4 b2b4 a4b3 c2b3 b7b5 d5d6 c7d6 a2a4 b5a4 b3a4 d6d5 a4a5 d5d4 a5a6 d4d3 e2d3 d7d5 a6a7 d5d4 a7a8
+### SOLVE n=7 rule=loss minsub=16 
+n=7 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=123981255 (2.0GB) visits=1414804343 62.41s (22.7M/s)
+optimal_first_moves: c2c4 e2e4
+pv: c2c4 a7a5 d2d4 a5a4 b2b4 a4b3 a2b3 b7b5 c4b5 c7c5 b5c6 d7c6 d4d5 c6d5 f2f4 d5d4 f4f5 d4d3 e2d3 e7e5 f5e6 f7e6 g2g4 e6e5 g4g5 e5e4 d3e4 g7g6 e4e5
+pvfirst c2c4: c2c4 a7a5 d2d4 a5a4 b2b4 a4b3 a2b3 b7b5 c4b5 c7c5 b5c6 d7c6 d4d5 c6d5 f2f4 d5d4 f4f5 d4d3 e2d3 e7e5 f5e6 f7e6 g2g4 e6e5 g4g5 e5e4 d3e4 g7g6 e4e5
+pvfirst e2e4: e2e4 a7a5 e4e5 a5a4 c2c4 a4a3 b2a3 b7b5 c4b5 c7c5 b5c6 d7c6 e5e6 f7e6 f2f4 c6c5 f4f5 e6f5 a3a4 c5c4 a4a5 c4c3 d2c3 f5f4 a5a6 f4f3 g2f3 e7e5 a6a7 e5e4 f3e4 g7g5 a7a8
+### SOLVE n=1 rule=draw minsub=16 
+n=1 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=0 (0.0GB) visits=6 0.00s (0.0M/s)
+optimal_first_moves: a2a3 a2a4
+pv: a2a4 a7a5
+pvfirst a2a3: a2a3 a7a5 a3a4
+pvfirst a2a4: a2a4 a7a5
+### SOLVE n=2 rule=draw minsub=16 
+n=2 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=-1 (BLACK wins) stored=13 (0.0GB) visits=495 0.00s (0.2M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 b2b4
+pv: a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 a5a6 b7a6
+pvfirst a2a3: a2a3 a7a6 b2b4 b7b5 a3a4 b5a4 b4b5 a6b5
+pvfirst a2a4: a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 a5a6 b7a6
+pvfirst b2b3: b2b3 b7b6 a2a4 a7a5 b3b4 a5b4 a4a5 b6a5
+pvfirst b2b4: b2b4 b7b5 a2a4 b5a4 b4b5 a4a3 b5b6 a7b6
+### SOLVE n=3 rule=draw minsub=16 
+n=3 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=928 (0.0GB) visits=12771 0.00s (4.0M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 c2c3 c2c4
+pv: a2a4 a7a5 c2c3 b7b6 b2b4 c7c5 b4a5 b6a5 c3c4
+pvfirst a2a3: a2a3 a7a5 a3a4 c7c6 b2b3 c6c5 c2c3 c5c4 b3c4 b7b6 c4c5 b6c5 c3c4
+pvfirst a2a4: a2a4 a7a5 c2c3 b7b6 b2b4 c7c5 b4a5 b6a5 c3c4
+pvfirst b2b3: b2b3 a7a5 c2c4 c7c5 a2a3 a5a4 b3a4 b7b6 a4a5 b6a5 a3a4
+pvfirst c2c3: c2c3 a7a5 a2a4 b7b6 b2b4 c7c5 b4a5 b6a5 c3c4
+pvfirst c2c4: c2c4 a7a5 c4c5 a5a4 b2b4 a4b3 a2b3 b7b5 c5b6 c7b6 b3b4 b6b5
+### SOLVE n=4 rule=draw minsub=16 
+n=4 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=27085 (0.0GB) visits=349507 0.01s (24.8M/s)
+optimal_first_moves: b2b4 c2c4
+pv: b2b4 a7a5 b4a5 b7b5 a5b6 c7b6 a2a4 b6b5 a4b5 d7d5 b5b6 d5d4 b6b7 d4d3 c2d3
+pvfirst b2b4: b2b4 a7a5 b4a5 b7b5 a5b6 c7b6 a2a4 b6b5 a4b5 d7d5 b5b6 d5d4 b6b7 d4d3 c2d3
+pvfirst c2c4: c2c4 a7a5 b2b3 a5a4 b3a4 b7b5 a4b5 c7c5 b5c6 d7c6 d2d4 c6c5 d4c5
+### SOLVE n=5 rule=draw minsub=16 
+n=5 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=726133 (0.0GB) visits=8504972 0.36s (23.9M/s)
+optimal_first_moves: b2b4 d2d4
+pv: b2b4 d7d5 b4b5 d5d4 a2a4 a7a5 b5a6 b7a6 a4a5 d4d3 c2d3 c7c5 e2e4 c5c4 d3c4 e7e5 c4c5
+pvfirst b2b4: b2b4 d7d5 b4b5 d5d4 a2a4 a7a5 b5a6 b7a6 a4a5 d4d3 c2d3 c7c5 e2e4 c5c4 d3c4 e7e5 c4c5
+pvfirst d2d4: d2d4 b7b5 d4d5 b5b4 a2a4 b4a3 b2a3 a7a5 d5d6 c7d6 c2c4 a5a4 e2e4 d6d5 c4d5 e7e5 d5e6 d7e6 e4e5
+### SOLVE n=6 rule=draw minsub=16 
+n=6 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=18037094 (0.3GB) visits=208601305 9.20s (22.7M/s)
+optimal_first_moves: c2c4 d2d4
+pv: c2c4 a7a5 d2d4 a5a4 b2b4 a4b3 a2b3 b7b5 c4b5 c7c5 b5c6 d7c6 d4d5 c6d5 f2f4 d5d4 f4f5 d4d3 e2d3 e7e5 f5e6 f7e6 b3b4 e6e5 b4b5 e5e4 d3e4
+pvfirst c2c4: c2c4 a7a5 d2d4 a5a4 b2b4 a4b3 a2b3 b7b5 c4b5 c7c5 b5c6 d7c6 d4d5 c6d5 f2f4 d5d4 f4f5 d4d3 e2d3 e7e5 f5e6 f7e6 b3b4 e6e5 b4b5 e5e4 d3e4
+pvfirst d2d4: d2d4 a7a5 c2c4 a5a4 b2b4 a4b3 a2b3 b7b5 c4b5 c7c5 b5c6 d7c6 d4d5 c6d5 f2f4 d5d4 f4f5 d4d3 e2d3 e7e5 f5e6 f7e6 b3b4 e6e5 b4b5 e5e4 d3e4
+### SOLVE n=7 rule=draw minsub=16 
+n=7 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=433680123 (6.9GB) visits=4975336153 234.48s (21.2M/s)
+optimal_first_moves: a2a4 c2c4 d2d3 e2e4 g2g4
+pv: a2a4 c7c5 e2e4 e7e5 a4a5 c5c4 g2g3 b7b6 a5b6 a7b6 f2f4 f7f5 e4f5 e5f4 g3f4 b6b5 f5f6 g7f6 f4f5 c4c3 b2c3 d7d5 d2d4 b5b4 c3b4
+pvfirst a2a4: a2a4 c7c5 e2e4 e7e5 a4a5 c5c4 g2g3 b7b6 a5b6 a7b6 f2f4 f7f5 e4f5 e5f4 g3f4 b6b5 f5f6 g7f6 f4f5 c4c3 b2c3 d7d5 d2d4 b5b4 c3b4
+pvfirst c2c4: c2c4 c7c5 g2g4 e7e5 g4g5 e5e4 a2a3 f7f6 g5f6 g7f6 b2b4 b7b5 c4b5 c5b4 a3b4 f6f5 b5b6 a7b6 b4b5 e4e3 d2e3 d7d5 f2f4 d5d4 e3d4
+pvfirst d2d3: d2d3 a7a5 c2c4 a5a4 d3d4 f7f5 b2b4 a4b3 a2b3 f5f4 d4d5 e7e5 d5e6 d7e6 c4c5 f4f3 e2f3 e6e5 c5c6 b7c6 b3b4 c6c5 b4c5 g7g5 c5c6 e5e4 f3e4 g5g4 e4e5 g4g3 f2g3
+pvfirst e2e4: e2e4 c7c5 a2a4 e7e5 a4a5 c5c4 g2g3 b7b6 a5b6 a7b6 f2f4 f7f5 e4f5 e5f4 g3f4 b6b5 f5f6 g7f6 f4f5 c4c3 b2c3 d7d5 d2d4 b5b4 c3b4
+pvfirst g2g4: g2g4 a7a5 c2c4 e7e5 c4c5 a5a4 g4g5 e5e4 b2b4 a4b3 a2b3 b7b5 c5b6 c7b6 d2d4 e4d3 e2d3 b6b5 g5g6 f7g6 f2f4 b5b4 f4f5 g6f5 d3d4 f5f4 d4d5 f4f3 d5d6 f3f2
+### SOLVE n=1 rule=loss minsub=16 --noep
+n=1 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=-1 (BLACK wins) stored=0 (0.0GB) visits=7 0.00s (0.0M/s)
+optimal_first_moves: a2a3 a2a4
+pv: a2a4 a7a5
+pvfirst a2a3: a2a3 a7a6 a3a4 a6a5
+pvfirst a2a4: a2a4 a7a5
+### SOLVE n=2 rule=loss minsub=16 --noep
+n=2 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=-1 (BLACK wins) stored=3 (0.0GB) visits=230 0.00s (0.1M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 b2b4
+pv: a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 a5a6 b7a6
+pvfirst a2a3: a2a3 b7b5 b2b4 a7a6 a3a4 b5a4 b4b5 a6b5
+pvfirst a2a4: a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 a5a6 b7a6
+pvfirst b2b3: b2b3 a7a5 a2a4 b7b6 b3b4 a5b4 a4a5 b6a5
+pvfirst b2b4: b2b4 b7b5 a2a4 b5a4 b4b5 a4a3 b5b6 a7b6
+### SOLVE n=3 rule=loss minsub=16 --noep
+n=3 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=-1 (BLACK wins) stored=334 (0.0GB) visits=5297 0.00s (1.9M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 b2b4 c2c3 c2c4
+pv: a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 c2b3 c7c5 a5a6 b7a6 b3b4 c5b4
+pvfirst a2a3: a2a3 b7b5 b2b4 a7a6 c2c4 b5c4 b4b5 a6b5 a3a4 b5a4
+pvfirst a2a4: a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 c2b3 c7c5 a5a6 b7a6 b3b4 c5b4
+pvfirst b2b3: b2b3 b7b6 a2a4 c7c5 a4a5 b6a5 c2c4 a5a4 b3a4 a7a5
+pvfirst b2b4: b2b4 b7b5 a2a4 b5a4 b4b5 a4a3 b5b6 a7b6 c2c4 a3a2 c4c5 b6c5
+pvfirst c2c3: c2c3 b7b5 a2a4 b5a4 b2b4 a4a3 b4b5 a3a2 b5b6 a7b6 c3c4 a2a1
+pvfirst c2c4: c2c4 a7a5 c4c5 a5a4 c5c6 b7c6 b2b4 a4a3 b4b5 c6b5
+### SOLVE n=4 rule=loss minsub=16 --noep
+n=4 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=10554 (0.0GB) visits=132141 0.01s (23.9M/s)
+optimal_first_moves: b2b4 c2c4
+pv: b2b4 a7a5 b4a5 b7b5 a5a6 b5b4 a6a7 b4b3 a2b3 c7c5 a7a8
+pvfirst b2b4: b2b4 a7a5 b4a5 b7b5 a5a6 b5b4 a6a7 b4b3 a2b3 c7c5 a7a8
+pvfirst c2c4: c2c4 a7a5 d2d4 a5a4 d4d5 a4a3 b2a3 b7b5 c4b5 c7c5 b5b6 c5c4 b6b7 c4c3 b7b8
+### SOLVE n=5 rule=loss minsub=16 --noep
+n=5 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=-1 (BLACK wins) stored=283252 (0.0GB) visits=3176242 0.13s (24.5M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 b2b4 c2c3 c2c4 d2d3 d2d4 e2e3 e2e4
+pv: a2a4 c7c5 a4a5 c5c4 a5a6 b7a6 b2b4 c4c3 d2c3 d7d5 b4b5 a6b5 e2e4 d5e4 c3c4 b5c4 c2c3 e4e3
+pvfirst a2a3: a2a3 b7b5 b2b4 d7d5 c2c4 b5c4 b4b5 c4c3 d2c3 a7a5 b5b6 c7b6 e2e4 d5e4 a3a4 e4e3 c3c4 e3e2 c4c5 b6c5
+pvfirst a2a4: a2a4 c7c5 a4a5 c5c4 a5a6 b7a6 b2b4 c4c3 d2c3 d7d5 b4b5 a6b5 e2e4 d5e4 c3c4 b5c4 c2c3 e4e3
+pvfirst b2b3: b2b3 b7b5 a2a4 b5a4 b3a4 a7a5 c2c4 c7c5 d2d4 c5d4 c4c5 d4d3 e2d3 e7e5 c5c6 d7c6 d3d4 e5d4
+pvfirst b2b4: b2b4 d7d5 b4b5 d5d4 b5b6 a7b6 a2a4 d4d3 c2d3 c7c6 a4a5 b6a5 e2e4 a5a4 e4e5 a4a3 e5e6 a3a2 d3d4 a2a1
+pvfirst c2c3: c2c3 b7b5 a2a4 b5a4 b2b4 a4a3 b4b5 a3a2 b5b6 a7b6 d2d4 a2a1
+pvfirst c2c4: c2c4 c7c5 a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 a5a6 b7a6 d2d4 c5d4 c4c5 b3b2 c5c6 d7c6 e2e4 b2b1
+pvfirst d2d3: d2d3 c7c5 a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 c2b3 d7d5 a5a6 b7a6 e2e4 d5e4 d3e4 a6a5 e4e5 a5a4 b3a4 c5c4 e5e6 c4c3 a4a5 c3c2 a5a6 c2c1
+pvfirst d2d4: d2d4 b7b5 d4d5 b5b4 d5d6 c7d6 a2a4 d6d5 a4a5 d5d4 a5a6 b4b3 c2b3 e7e5 e2e4 d4d3 b3b4 d3d2 b4b5 d2d1
+pvfirst e2e3: e2e3 b7b5 a2a4 b5a4 b2b4 a4a3 b4b5 a3a2 b5b6 a7b6 c2c4 a2a1
+pvfirst e2e4: e2e4 a7a5 e4e5 a5a4 e5e6 d7e6 b2b4 a4a3 b4b5 e6e5 b5b6 c7b6 c2c4 e5e4 c4c5 b6c5 d2d4 c5d4
+### SOLVE n=6 rule=loss minsub=16 --noep
+n=6 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=6524759 (0.1GB) visits=72490375 3.28s (22.1M/s)
+optimal_first_moves: c2c4 d2d4
+pv: c2c4 a7a5 b2b3 a5a4 b3a4 b7b5 a4b5 c7c5 b5b6 d7d5 c4d5 c5c4 b6b7 c4c3 d2c3 e7e5 b7b8
+pvfirst c2c4: c2c4 a7a5 b2b3 a5a4 b3a4 b7b5 a4b5 c7c5 b5b6 d7d5 c4d5 c5c4 b6b7 c4c3 d2c3 e7e5 b7b8
+pvfirst d2d4: d2d4 a7a5 d4d5 a5a4 b2b4 a4a3 b4b5 c7c5 b5b6 c5c4 f2f4 c4c3 f4f5 e7e5 e2e4 d7d6 f5f6
+### SOLVE n=7 rule=loss minsub=16 --noep
+n=7 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=-1 (BLACK wins) stored=143105081 (2.3GB) visits=1654598533 70.93s (23.3M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 b2b4 c2c3 c2c4 d2d3 d2d4 e2e3 e2e4 f2f3 f2f4 g2g3 g2g4
+pv: a2a4 f7f5 a4a5 d7d5 a5a6 b7a6 b2b4 d5d4 b4b5 a6b5 c2c4 b5c4 e2e4 f5e4 f2f4 c4c3 d2c3 d4c3 f4f5 c3c2 f5f6 e7f6 g2g4 c2c1
+pvfirst a2a3: a2a3 b7b5 b2b4 d7d5 c2c4 b5c4 b4b5 c4c3 d2c3 e7e5 b5b6 a7b6 e2e4 d5e4 f2f4 e5f4 g2g4 e4e3 g4g5 e3e2 g5g6 f7g6 a3a4 e2e1
+pvfirst a2a4: a2a4 f7f5 a4a5 d7d5 a5a6 b7a6 b2b4 d5d4 b4b5 a6b5 c2c4 b5c4 e2e4 f5e4 f2f4 c4c3 d2c3 d4c3 f4f5 c3c2 f5f6 e7f6 g2g4 c2c1
+pvfirst b2b3: b2b3 c7c5 a2a4 a7a5 c2c4 e7e5 d2d4 c5d4 c4c5 d4d3 e2d3 d7d5 c5c6 b7c6 f2f4 e5f4 g2g4 f4f3 g4g5 f3f2 g5g6 f7g6 b3b4 a5b4 a4a5 f2f1
+pvfirst b2b4: b2b4 b7b5 a2a4 b5a4 b4b5 a4a3 b5b6 a7b6 c2c4 a3a2 c4c5 b6c5 d2d4 c5d4 e2e4 a2a1
+pvfirst c2c3: c2c3 a7a5 a2a4 d7d5 b2b4 a5b4 c3b4 d5d4 a4a5 c7c6 a5a6 b7a6 b4b5 a6b5 e2e4 d4d3 e4e5 b5b4 e5e6 f7e6 f2f4 b4b3 f4f5 e6f5 g2g4 f5g4
+pvfirst c2c4: c2c4 f7f6 c4c5 f6f5 c5c6 b7c6 a2a4 f5f4 a4a5 f4f3 e2f3 c6c5 a5a6 e7e5 b2b4 c5b4 d2d4 e5d4 g2g4 b4b3 g4g5 b3b2 g5g6 b2b1
+pvfirst d2d3: d2d3 a7a5 a2a4 c7c5 b2b4 a5b4 a4a5 b4b3 c2b3 d7d5 a5a6 b7a6 e2e4 d5e4 d3e4 a6a5 e4e5 a5a4 b3a4 c5c4 e5e6 f7e6 a4a5 c4c3 a5a6 c3c2 a6a7 c2c1
+pvfirst d2d4: d2d4 b7b5 d4d5 b5b4 d5d6 c7d6 a2a4 d6d5 a4a5 d5d4 a5a6 b4b3 c2b3 e7e5 e2e4 d4d3 f2f4 e5f4 e4e5 d3d2 e5e6 d7e6 g2g4 d2d1
+pvfirst e2e3: e2e3 a7a5 a2a4 d7d5 b2b4 a5b4 a4a5 b4b3 c2b3 c7c5 a5a6 b7a6 d2d4 c5d4 e3d4 a6a5 f2f4 f7f5 g2g4 f5g4 f4f5 g4g3 f5f6 e7f6 b3b4 a5b4
+pvfirst e2e4: e2e4 b7b6 e4e5 b6b5 e5e6 d7e6 a2a4 b5a4 b2b4 a4a3 b4b5 a3a2 b5b6 a7b6 c2c4 a2a1
+pvfirst f2f3: f2f3 b7b5 a2a4 b5a4 b2b4 a4a3 b4b5 a3a2 b5b6 a7b6 c2c4 a2a1
+pvfirst f2f4: f2f4 f7f5 a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 c2b3 d7d6 a5a6 b7a6 d2d4 a6a5 d4d5 c7c5 e2e4 f5e4 f4f5 e4e3 f5f6 e7f6 g2g4 e3e2 g4g5 f6g5 b3b4 a5b4
+pvfirst g2g3: g2g3 b7b5 a2a4 b5a4 b2b4 a4a3 b4b5 a3a2 b5b6 a7b6 c2c4 a2a1
+pvfirst g2g4: g2g4 a7a5 g4g5 a5a4 g5g6 f7g6 b2b4 a4a3 b4b5 g6g5 b5b6 c7b6 c2c4 g5g4 c4c5 b6c5 d2d4 c5d4 e2e4 d4d3 e4e5 d3d2 e5e6 d7e6 f2f4 d2d1
+### SOLVE n=1 rule=draw minsub=16 --noep
+n=1 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=0 (0.0GB) visits=6 0.00s (0.0M/s)
+optimal_first_moves: a2a3 a2a4
+pv: a2a4 a7a5
+pvfirst a2a3: a2a3 a7a5 a3a4
+pvfirst a2a4: a2a4 a7a5
+### SOLVE n=2 rule=draw minsub=16 --noep
+n=2 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=-1 (BLACK wins) stored=13 (0.0GB) visits=487 0.00s (0.1M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 b2b4
+pv: a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 a5a6 b7a6
+pvfirst a2a3: a2a3 a7a6 b2b4 b7b5 a3a4 b5a4 b4b5 a6b5
+pvfirst a2a4: a2a4 a7a5 b2b4 a5b4 a4a5 b4b3 a5a6 b7a6
+pvfirst b2b3: b2b3 b7b6 a2a4 a7a5 b3b4 a5b4 a4a5 b6a5
+pvfirst b2b4: b2b4 b7b5 a2a4 b5a4 b4b5 a4a3 b5b6 a7b6
+### SOLVE n=3 rule=draw minsub=16 --noep
+n=3 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=921 (0.0GB) visits=12682 0.00s (4.8M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 c2c3 c2c4
+pv: a2a4 a7a5 c2c3 b7b6 b2b4 c7c5 b4a5 b6a5 c3c4
+pvfirst a2a3: a2a3 a7a5 c2c4 a5a4 c4c5 b7b5 c5c6 b5b4 a3b4 a4a3 b2a3
+pvfirst a2a4: a2a4 a7a5 c2c3 b7b6 b2b4 c7c5 b4a5 b6a5 c3c4
+pvfirst b2b3: b2b3 a7a5 c2c4 c7c5 a2a3 a5a4 b3a4 b7b6 a4a5 b6a5 a3a4
+pvfirst c2c3: c2c3 a7a5 a2a4 b7b6 b2b4 c7c5 b4a5 b6a5 c3c4
+pvfirst c2c4: c2c4 a7a5 c4c5 a5a4 c5c6 b7c6 b2b4 a4a3 b4b5 c6b5
+### SOLVE n=4 rule=draw minsub=16 --noep
+n=4 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=28672 (0.0GB) visits=348093 0.01s (25.3M/s)
+optimal_first_moves: a2a3 b2b3 b2b4 c2c3 c2c4 d2d3
+pv: b2b4 d7d5 b4b5 d5d4 b5b6 a7b6 a2a4 d4d3 c2d3 b6b5 a4b5 c7c5 b5b6 c5c4 d3c4
+pvfirst a2a3: a2a3 b7b5 b2b3 a7a5 c2c4 b5c4 b3c4 a5a4 c4c5 d7d5 c5c6 d5d4 d2d3
+pvfirst b2b3: b2b3 a7a5 c2c4 b7b6 d2d4 c7c6 d4d5 c6d5 c4d5 b6b5 d5d6 a5a4 b3a4 b5a4 a2a3
+pvfirst b2b4: b2b4 d7d5 b4b5 d5d4 b5b6 a7b6 a2a4 d4d3 c2d3 b6b5 a4b5 c7c5 b5b6 c5c4 d3c4
+pvfirst c2c3: c2c3 a7a5 c3c4 a5a4 c4c5 a4a3 b2a3 b7b5 c5c6 d7c6 d2d4 c6c5 d4c5 c7c6 a3a4 b5a4 a2a3
+pvfirst c2c4: c2c4 a7a5 c4c5 a5a4 c5c6 b7c6 b2b4 a4a3 d2d4 c6c5 b4c5 d7d5 c5c6
+pvfirst d2d3: d2d3 a7a5 c2c4 a5a4 c4c5 a4a3 b2a3 b7b5 c5c6 d7c6 a3a4 b5a4 d3d4 a4a3 d4d5 c6d5
+### SOLVE n=5 rule=draw minsub=16 --noep
+n=5 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=775690 (0.0GB) visits=8834030 0.39s (22.7M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 b2b4 c2c3 c2c4 d2d3 d2d4 e2e3 e2e4
+pv: a2a4 c7c5 b2b3 d7d5 a4a5 c5c4 a5a6 b7a6 b3b4 c4c3 d2c3 a6a5 b4a5 e7e5 a5a6 d5d4 c3d4 e5d4 c2c4 d4d3 e2d3
+pvfirst a2a3: a2a3 a7a5 c2c4 a5a4 c4c5 e7e5 b2b4 e5e4 c5c6 b7c6 d2d4 e4e3 d4d5 c6d5 b4b5 d5d4 b5b6 c7b6
+pvfirst a2a4: a2a4 c7c5 b2b3 d7d5 a4a5 c5c4 a5a6 b7a6 b3b4 c4c3 d2c3 a6a5 b4a5 e7e5 a5a6 d5d4 c3d4 e5d4 c2c4 d4d3 e2d3
+pvfirst b2b3: b2b3 a7a5 a2a4 e7e5 c2c3 e5e4 b3b4 e4e3 d2e3 d7d5 b4a5 c7c5 a5a6 b7a6 e3e4 d5e4 a4a5 e4e3 c3c4
+pvfirst b2b4: b2b4 d7d5 b4b5 d5d4 b5b6 a7b6 a2a4 d4d3 e2d3 b6b5 a4b5 e7e5 b5b6 c7b6 c2c4 b6b5 c4b5 e5e4 d3e4 b7b6 e4e5
+pvfirst c2c3: c2c3 a7a5 a2a4 d7d5 b2b4 a5b4 c3b4 d5d4 a4a5 c7c6 a5a6 b7a6 e2e4 d4d3 b4b5 a6b5 e4e5 b5b4 e5e6 b4b3
+pvfirst c2c4: c2c4 a7a5 c4c5 a5a4 c5c6 b7c6 d2d4 e7e5 d4e5 c6c5 a2a3 c5c4 e2e3 c7c5 e3e4 c4c3 b2c3 c5c4 e5e6 d7e6 e4e5
+pvfirst d2d3: d2d3 a7a5 c2c4 a5a4 c4c5 a4a3 b2a3 b7b5 c5c6 d7c6 a3a4 b5a4 d3d4 a4a3 e2e4 c6c5 d4c5 e7e5 c5c6
+pvfirst d2d4: d2d4 b7b5 d4d5 b5b4 d5d6 c7d6 c2c4 b4b3 a2b3 d6d5 c4d5 a7a5 d5d6 e7d6 e2e4 d6d5 e4d5 a5a4 b3a4 d7d6 a4a5
+pvfirst e2e3: e2e3 a7a5 c2c4 a5a4 c4c5 a4a3 b2a3 b7b5 c5c6 d7c6 d2d4 c6c5 d4c5 e7e5 c5c6 b5b4 a3b4 e5e4 b4b5
+pvfirst e2e4: e2e4 a7a5 e4e5 a5a4 b2b4 a4a3 b4b5 c7c5 b5b6 c5c4 e5e6 d7e6 d2d4 c4c3 d4d5 e6d5
+### SOLVE n=6 rule=draw minsub=16 --noep
+n=6 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=20194441 (0.3GB) visits=225940089 10.49s (21.5M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 c2c3 c2c4 d2d3 d2d4 e2e3 f2f3 f2f4
+pv: a2a4 a7a5 f2f4 d7d5 f4f5 d5d4 c2c3 d4c3 d2c3 e7e5 f5f6 e5e4 b2b4 a5b4 c3b4 e4e3 a4a5 c7c6 a5a6 b7a6 b4b5 a6b5
+pvfirst a2a3: a2a3 a7a5 b2b4 a5b4 a3b4 d7d5 c2c3 e7e5 b4b5 d5d4 b5b6 c7b6 c3c4 d4d3 e2d3 b6b5 c4b5 f7f5 b5b6 e5e4 d3e4 f5e4 d2d4 e4e3 f2e3
+pvfirst a2a4: a2a4 a7a5 f2f4 d7d5 f4f5 d5d4 c2c3 d4c3 d2c3 e7e5 f5f6 e5e4 b2b4 a5b4 c3b4 e4e3 a4a5 c7c6 a5a6 b7a6 b4b5 a6b5
+pvfirst b2b3: b2b3 a7a5 c2c4 b7b6 d2d4 c7c6 d4d5 c6d5 c4d5 b6b5 d5d6 e7d6 e2e4 a5a4 b3a4 b5a4 f2f4 a4a3 e4e5 d6e5 f4e5 d7d5 e5e6 f7e6
+pvfirst c2c3: c2c3 a7a5 e2e4 a5a4 e4e5 a4a3 b2a3 b7b5 e5e6 d7e6 d2d4 e6e5 d4e5 c7c5 e5e6 f7e6 a3a4 b5a4 f2f4 a4a3 f4f5 e6f5 c3c4 f5f4
+pvfirst c2c4: c2c4 a7a5 c4c5 a5a4 b2b4 a4a3 b4b5 d7d5 b5b6 c7b6 c5b6 d5d4 e2e4 d4d3 e4e5 f7f5 e5e6 f5f4 f2f3
+pvfirst d2d3: d2d3 a7a5 c2c4 a5a4 c4c5 a4a3 b2a3 b7b5 c5c6 d7c6 d3d4 e7e5 a3a4 b5a4 e2e3 e5d4 e3d4 a4a3 d4d5 c6d5 f2f4 d5d4 f4f5 d4d3 f5f6 d3d2
+pvfirst d2d4: d2d4 a7a5 d4d5 a5a4 b2b4 a4a3 b4b5 c7c5 b5b6 c5c4 d5d6 e7d6 e2e4 c4c3 f2f4 d6d5 e4d5 f7f5 d5d6
+pvfirst e2e3: e2e3 a7a5 c2c4 a5a4 b2b4 a4a3 f2f4 b7b5 c4b5 f7f5 b5b6 c7b6 d2d3 b6b5 e3e4 e7e6 e4f5 e6f5 d3d4 d7d5
+pvfirst f2f3: f2f3 a7a5 c2c4 a5a4 b2b4 a4a3 b4b5 c7c5 f3f4 f7f6 f4f5 e7e5 d2d3 b7b6 e2e3 e5e4 d3e4 d7d6 e4e5 d6e5 e3e4
+pvfirst f2f4: f2f4 a7a5 f4f5 a5a4 b2b4 a4a3 b4b5 c7c5 b5b6 c5c4 f5f6 e7f6 e2e4 c4c3 d2c3 f6f5 e4f5 d7d5 f5f6 d5d4 c3d4
+### SOLVE n=7 rule=draw minsub=16 --noep
+n=7 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=493995230 (7.9GB) visits=5531433031 205.02s (27.0M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 c2c3 c2c4 d2d3 d2d4 e2e3 e2e4 f2f3 g2g3 g2g4
+pv: a2a4 a7a5 d2d4 f7f5 d4d5 f5f4 g2g4 g7g5 e2e4 f4f3 e4e5 e7e6 d5e6 d7e6 c2c3 b7b6 b2b4 c7c5 b4a5 b6a5 c3c4
+pvfirst a2a3: a2a3 a7a5 b2b4 a5b4 a3b4 b7b5 g2g4 e7e5 g4g5 e5e4 d2d3 e4d3 e2d3 f7f5 g5g6 f5f4 c2c4 b5c4 d3c4 f4f3 b4b5 d7d6 b5b6 c7b6 c4c5 b6c5
+pvfirst a2a4: a2a4 a7a5 d2d4 f7f5 d4d5 f5f4 g2g4 g7g5 e2e4 f4f3 e4e5 e7e6 d5e6 d7e6 c2c3 b7b6 b2b4 c7c5 b4a5 b6a5 c3c4
+pvfirst b2b3: b2b3 a7a5 c2c4 b7b6 d2d4 c7c6 d4d5 c6d5 c4d5 b6b5 a2a4 b5a4 b3a4 e7e5 d5d6 e5e4 f2f4 e4e3 f4f5 g7g5 f5f6 g5g4 g2g3
+pvfirst c2c3: c2c3 a7a5 a2a4 d7d5 b2b4 a5b4 c3b4 d5d4 a4a5 c7c6 a5a6 b7a6 e2e4 d4d3 e4e5 f7f5 e5e6 f5f4 g2g4 f4f3 b4b5 a6b5 g4g5 b5b4 g5g6 b4b3
+pvfirst c2c4: c2c4 a7a5 c4c5 a5a4 b2b4 a4a3 b4b5 f7f5 b5b6 c7b6 c5b6 f5f4 g2g4 f4f3 e2f3 e7e5 g4g5 d7d5 g5g6 d5d4 f3f4 e5f4 d2d3 f4f3
+pvfirst d2d3: d2d3 a7a5 c2c4 a5a4 c4c5 e7e5 e2e3 d7d5 f2f4 e5f4 e3f4 a4a3 b2a3 b7b5 c5c6 d5d4 f4f5 g7g5 f5f6 g5g4 a3a4 b5a4 a2a3 g4g3
+pvfirst d2d4: d2d4 a7a5 d4d5 a5a4 e2e4 b7b5 e4e5 b5b4 g2g4 a4a3 b2a3 b4a3 e5e6 d7e6 d5e6 f7e6 f2f4 e6e5 f4e5 c7c5 e5e6 c5c4 g4g5 c4c3 g5g6
+pvfirst e2e3: e2e3 a7a5 c2c4 a5a4 b2b4 a4a3 c4c5 b7b5 d2d4 d7d5 g2g4 c7c6 g4g5 e7e6 f2f3 f7f6 g5f6 g7f6 e3e4 f6f5 e4d5 e6d5 f3f4
+pvfirst e2e4: e2e4 a7a5 e4e5 a5a4 b2b4 a4a3 b4b5 c7c5 b5b6 c5c4 e5e6 d7e6 f2f4 g7g5 f4g5 e6e5 c2c3 e5e4 g2g3 e7e5 g3g4 e4e3 d2e3 e5e4 g5g6 f7g6 g4g5
+pvfirst f2f3: f2f3 a7a5 c2c4 a5a4 c4c5 e7e5 e2e3 d7d5 f3f4 e5f4 e3f4 a4a3 b2a3 b7b5 c5c6 d5d4 f4f5 d4d3 f5f6 g7f6 g2g4 f6f5 g4f5 b5b4 a3b4 f7f6 b4b5
+pvfirst g2g3: g2g3 a7a5 c2c4 a5a4 b2b4 a4a3 b4b5 c7c5 g3g4 g7g5 b5b6 e7e6 e2e3 d7d5 f2f4 d5c4 f4g5 c4c3 d2c3 c5c4 g5g6 f7g6 g4g5 e6e5 e3e4
+pvfirst g2g4: g2g4 a7a5 g4g5 a5a4 b2b4 a4a3 b4b5 c7c5 b5b6 c5c4 d2d4 c4c3 d4d5 e7e5 d5d6 e5e4 g5g6 f7g6 f2f4 e4e3 f4f5 g6f5
+### SOLVE n=8 rule=loss minsub=16 --noep
+n=8 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=1763767590 (28.2GB) visits=20623955624 1061.64s (19.4M/s)
+optimal_first_moves: b2b4 g2g4
+pv: b2b4 a7a5 b4a5 b7b5 a5a6 b5b4 a6a7 b4b3 a2b3 c7c5 a7a8
+pvfirst b2b4: b2b4 a7a5 b4a5 b7b5 a5a6 b5b4 a6a7 b4b3 a2b3 c7c5 a7a8
+pvfirst g2g4: g2g4 a7a5 a2a4 b7b5 a4b5 a5a4 g4g5 a4a3 b2a3 c7c5 b5b6 c5c4 b6b7 c4c3 d2c3 d7d5 b7b8
+### SOLVE n=8 rule=draw minsub=64 --noep
+n=8 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=64 threads=32 value=0 (DRAW) stored=4112647753 (65.8GB) visits=190027340190 5367.24s (35.4M/s)
+optimal_first_moves: a2a3 a2a4 b2b3 b2b4 c2c4 d2d3 d2d4 e2e3 e2e4 f2f4 g2g3 g2g4 h2h3 h2h4
+pv: a2a4 a7a5 d2d4 f7f5 d4d5 f5f4 e2e4 f4f3 g2f3 g7g5 e4e5 h7h5 e5e6 d7e6 d5e6 h5h4 f3f4 g5f4 c2c3 f4f3 b2b4 a5b4 c3b4 h4h3 a4a5 c7c6 a5a6 b7a6 b4b5 a6b5
+pvfirst a2a3: a2a3 a7a5 b2b4 a5b4 a3b4 b7b5 e2e4 g7g5 e4e5 g5g4 h2h4 h7h5 f2f4 g4g3 f4f5 f7f6 e5f6 e7f6 d2d3 c7c6 c2c4 d7d5 c4b5 c6b5 d3d4
+pvfirst a2a4: a2a4 a7a5 d2d4 f7f5 d4d5 f5f4 e2e4 f4f3 g2f3 g7g5 e4e5 h7h5 e5e6 d7e6 d5e6 h5h4 f3f4 g5f4 c2c3 f4f3 b2b4 a5b4 c3b4 h4h3 a4a5 c7c6 a5a6 b7a6 b4b5 a6b5
+pvfirst b2b3: b2b3 a7a5 c2c4 b7b6 d2d4 c7c6 d4d5 c6d5 c4d5 b6b5 a2a4 b5a4 b3a4 e7e5 d5d6 e5e4 f2f4 e4e3 f4f5 g7g5 f5f6 g5g4 h2h4 g4g3 h4h5 h7h6
+pvfirst b2b4: b2b4 d7d5 b4b5 d5d4 a2a4 a7a5 f2f4 c7c5 b5b6 c5c4 f4f5 c4c3 d2c3 d4c3 f5f6 e7f6 g2g4 g7g6 e2e3 f6f5 g4g5 f5f4 e3f4 f7f5 h2h4 h7h5
+pvfirst c2c4: c2c4 a7a5 c4c5 a5a4 b2b4 a4a3 b4b5 d7d5 b5b6 c7b6 c5b6 d5d4 e2e4 d4d3 e4e5 f7f5 e5e6 f5f4 g2g4 f4f3 g4g5 h7h5 g5g6 h5h4 h2h3
+pvfirst d2d3: d2d3 a7a5 c2c4 a5a4 c4c5 d7d5 f2f4 d5d4 f4f5 h7h5 c5c6 b7c6 b2b4 a4a3 e2e4 h5h4 e4e5 h4h3 g2h3 c6c5 b4c5 g7g5 c5c6 e7e6 f5e6 f7e6 h3h4 g5h4 h2h3
+pvfirst d2d4: d2d4 a7a5 d4d5 a5a4 c2c4 g7g5 c4c5 g5g4 e2e4 a4a3 b2a3 b7b5 c5c6 d7c6 d5c6 h7h5 e4e5 g4g3 f2g3 f7f5 e5e6 h5h4 g3h4 f5f4 h4h5 f4f3 g2f3 b5b4 a3b4
+pvfirst e2e3: e2e3 a7a5 c2c4 a5a4 b2b4 a4a3 b4b5 c7c5 d2d4 d7d6 d4c5 d6c5 b5b6 f7f5 f2f3 e7e5 g2g4 f5g4 f3g4 e5e4 g4g5 h7h5 g5g6 h5h4 h2h3
+pvfirst e2e4: e2e4 a7a5 e4e5 a5a4 b2b4 a4a3 b4b5 c7c5 b5b6 c5c4 d2d4 c4c3 d4d5 f7f5 d5d6 e7d6 e5d6 f5f4 g2g4 f4f3 g4g5 h7h5 g5g6 h5h4 h2h3
+pvfirst f2f4: f2f4 a7a5 f4f5 a5a4 d2d4 b7b5 d4d5 b5b4 e2e4 c7c5 d5d6 e7d6 f5f6 g7f6 g2g4 a4a3 b2a3 b4a3 c2c4 d6d5 e4d5 f6f5 g4f5 h7h5 d5d6 h5h4 f5f6 h4h3
+pvfirst g2g3: g2g3 a7a5 c2c4 a5a4 b2b4 a4a3 b4b5 e7e5 c4c5 e5e4 b5b6 c7b6 c5b6 e4e3 d2e3 d7d5 e3e4 d5e4 f2f4 e4e3 g3g4 f7f6 g4g5 f6g5 f4g5 h7h5 g5g6 h5h4 h2h3
+pvfirst g2g4: g2g4 a7a5 g4g5 a5a4 b2b4 a4a3 b4b5 c7c5 b5b6 c5c4 d2d4 c4c3 d4d5 e7e5 d5d6 e5e4 g5g6 f7g6 f2f4 e4e3 h2h4 g6g5 f4g5 h7h5 g5g6
+pvfirst h2h3: h2h3 a7a5 c2c4 a5a4 b2b4 a4a3 b4b5 c7c5 f2f4 h7h5 f4f5 h5h4 b5b6 e7e6 f5e6 f7e6 g2g4 d7d5 g4g5 d5c4 g5g6 c4c3 d2c3 c5c4 e2e4 e6e5
+pvfirst h2h4: h2h4 a7a5 h4h5 a5a4 d2d4 a4a3 b2a3 b7b5 d4d5 c7c5 d5d6 e7d6 e2e4 c5c4 f2f4 c4c3 h5h6 g7h6 g2g4 d6d5 e4d5 h6h5 g4h5 b5b4 a3b4 f7f5 d5d6 h7h6 b4b5
+### SF n=7 rule=loss winning-side

@@ -18,15 +18,20 @@
 
 % ---- results as macros so tables/text update from one place ----
 \newcommand{\resLoss}{$B,B,B,W,B,W,W,W$}
-\newcommand{\resDraw}{$=,B,=,W,=,W,=,\text{[8: pending]}$}
-\newcommand{\nEightLossStates}{\num{824405252}}
-\newcommand{\nEightLossTime}{\SI{2760}{\second}}
+\newcommand{\resDraw}{$=,B,=,W,=,W,=,W$}
+\newcommand{\nEightLossStates}{\num{1547246008}}
+\newcommand{\nEightLossTime}{\SI{873}{\second}}
 \newcommand{\nEightLossOpening}{$b4$ or $c4$ (with their mirror images $g4$, $f4$)}
-\newcommand{\nEightLossPV}{\emph{[pending]}}
-\newcommand{\nEightDrawResult}{\emph{[pending]}}
-\newcommand{\drawEightStates}{\emph{[pending]}}
-\newcommand{\drawEightSize}{\emph{[pending]}}
-\newcommand{\drawEightTime}{\emph{[pending]}}
+\newcommand{\nEightDrawResult}{White}
+\newcommand{\drawEightStates}{\num{3611840263}}
+\newcommand{\drawEightSize}{57.8\,GB}
+\newcommand{\drawEightTime}{4681}
+% Stockfish winning-side W/D/L for n=7,8 (from the GCP run; L must be 0)
+\newcommand{\sfSevenLoss}{100/0/0}
+\newcommand{\sfSevenDraw}{98/2/0}
+\newcommand{\sfEightLoss}{100/0/0$^{\dagger}$}
+% n=8 draw value without en passant (from the GCP run's final solve)
+\newcommand{\noepEightDraw}{$\mathbf{=}$}
 \newcommand{\nEightLossPVfour}{\texttt{1.b4 a5 2.b4xa5 b5 3.a5xb6}\,e.p.\
 \texttt{c7xb6 4.a4}, after which White's a/b-passer runs to $b7$ and promotes
 while \texttt{c2xd3} halts Black's counter-runner.}
@@ -42,7 +47,7 @@ while \texttt{c2xd3} halts Black's counter-runner.}
 \newcommand{\pvLossVI}{1.\,c4 a5 2.\,c5 a4 3.\,d4 a3 4.\,bxa3 b5 5.\,cxb6\,e.p. cxb6 6.\,d5 b5 7.\,d6 exd6 8.\,e4 b4 9.\,axb4 d5 10.\,exd5 f5 11.\,d6 f4 12.\,b5 f3 13.\,b6}
 \newcommand{\pvLossVII}{1.\,c4 a5 2.\,d4 a4 3.\,b4 axb3\,e.p. 4.\,axb3 b5 5.\,cxb5 c5 6.\,bxc6\,e.p. dxc6 7.\,d5 cxd5 8.\,f4 d4 9.\,f5 d3 10.\,exd3 e5 11.\,fxe6\,e.p. fxe6 12.\,g4 e5 13.\,g5 e4 14.\,dxe4 g6 15.\,e5}
 \newcommand{\pvLossVIIIb}{1.\,b4 a5 2.\,bxa5 b5 3.\,axb6\,e.p. cxb6 4.\,a4 b5 5.\,axb5 d5 6.\,b6 d4 7.\,b7 d3 8.\,cxd3 e5 9.\,b8$\ddagger$}
-\newcommand{\pvLossVIIIc}{\emph{[pending: 1.c4 line]}}
+\newcommand{\pvLossVIIIc}{1.\,c4 a5 2.\,d4 a4 3.\,b4 axb3\,e.p. 4.\,axb3 b5 5.\,cxb5 c5 6.\,bxc6\,e.p. dxc6 7.\,d5 cxd5 8.\,f4 d4 9.\,f5 d3 10.\,exd3 e5 11.\,fxe6\,e.p. fxe6 12.\,g4 e5 13.\,g5 e4 14.\,dxe4 h5 15.\,gxh6\,e.p. gxh6 16.\,e5 h5 17.\,e6 h4 18.\,e7 h3 19.\,e8$\ddagger$}
 \newcommand{\pvDrawI}{1.\,a4 a5}
 \newcommand{\pvDrawII}{1.\,a4 a5 2.\,b4 axb4 3.\,a5 b3 4.\,a6 bxa6}
 \newcommand{\pvDrawIII}{1.\,a4 a5 2.\,c3 b6 3.\,b4 c5 4.\,bxa5 bxa5 5.\,c4}
@@ -50,11 +55,14 @@ while \texttt{c2xd3} halts Black's counter-runner.}
 \newcommand{\pvDrawV}{1.\,b4 d5 2.\,b5 d4 3.\,a4 a5 4.\,bxa6\,e.p. bxa6 5.\,a5 d3 6.\,cxd3 c5 7.\,e4 c4 8.\,dxc4 e5 9.\,c5}
 \newcommand{\pvDrawVI}{1.\,c4 a5 2.\,d4 a4 3.\,b4 axb3\,e.p. 4.\,axb3 b5 5.\,cxb5 c5 6.\,bxc6\,e.p. dxc6 7.\,d5 cxd5 8.\,f4 d4 9.\,f5 d3 10.\,exd3 e5 11.\,fxe6\,e.p. fxe6 12.\,b4 e5 13.\,b5 e4 14.\,dxe4}
 \newcommand{\pvDrawVII}{1.\,a4 c5 2.\,e4 e5 3.\,a5 c4 4.\,g3 b6 5.\,axb6 axb6 6.\,f4 f5 7.\,exf5 exf4 8.\,gxf4 b5 9.\,f6 gxf6 10.\,f5 c3 11.\,bxc3 d5 12.\,d4 b4 13.\,cxb4}
-\newcommand{\pvDrawVIII}{\emph{[pending: draw n=8 solving]}}
+\newcommand{\pvDrawVIII}{1.\,b4 a5 2.\,bxa5 b5 3.\,axb6\,e.p. cxb6 4.\,a4 b5 5.\,axb5 d5 6.\,b6 d4 7.\,b7 d3 8.\,cxd3 e5 9.\,b8$\ddagger$}
 
 % pawn-game diagrams from a (kingless) FEN: normal and small (for the grid)
 \newcommand{\pg}[1]{\chessboard[setfen={#1}, showmover=false, boardfontsize=13pt, label=false]}
 \newcommand{\pgs}[1]{\chessboard[setfen={#1}, showmover=false, boardfontsize=7pt, label=false]}
+% small board with a red move-arrow (#2 = e.g. a5-b6)
+\newcommand{\pgsm}[2]{\chessboard[setfen={#1}, showmover=false, boardfontsize=7pt,
+  label=false, pgfstyle=straightmove, color=red, linewidth=0.12em, markmoves={#2}]}
 
 \title{Exact Solution of the Pawn Game for up to Eight Pawns per Side}
 \author{}
@@ -74,7 +82,10 @@ no legal move: a \emph{loss} (the game's stated rule) or a \emph{draw} (chess
 stalemate). Under the loss rule the game is finite and drawless, and the full
 eight-pawn game is a first-player win; White wins for every $n\ge 6$ and for
 $n=4$, while Black wins for $n=1,2,3,5$. We give the outcomes under both rulesets,
-the optimal opening moves, and the winning technique. The solver combines a
+the optimal opening moves, and the winning technique. En passant proves essential
+rather than incidental: removing it flips four of the sixteen values---every White
+win under the chess-stalemate rule ($n=4,6,8$) and the seven-pawn game under the
+game's rule. The solver combines a
 bitboard search with a proved passed-pawn evaluator that settles many positions
 without expanding them, board symmetries, a packed transposition table, and a
 lock-free parallel search; correctness is established by fuzzing move generation
@@ -92,6 +103,18 @@ Despite its simplicity the game's theoretical value was not settled beyond small
 cases: public analysis established that four pawns a side is a win for White, and
 left the eight-pawn game open.
 
+The game also earns study for a reason beyond itself. Philidor's maxim that ``the
+pawns are the soul of chess''~\cite{philidor1749} holds that the pawn structure is
+the decisive substrate of a game even with the pieces still on the board. Taken
+seriously, that view makes the pawn game---chess reduced to its soul---a rough proxy
+for the winnability of the full game from a given pawn configuration: which side the
+structure favours, how a passed pawn is manufactured, and when a single tempo
+decides a race are the same questions a player faces with pieces present. Solving
+the pawn game exactly yields not only its own values but transferable patterns---the
+outside passer won by a tempo, the breakthrough sacrifice---that recur whenever
+pawns, rather than pieces, settle a real game. That is the sense in which working
+out this reduced game can return something to one's over-the-board chess.
+
 We determine the game-theoretic value of the $n$-versus-$n$ pawn game for
 $n=1,\dots,8$ under perfect play, under both the game's stated ruleset and the
 chess-stalemate variant, together with the optimal first moves and the winning
@@ -99,9 +122,11 @@ lines. The contributions are: (i) the exact outcomes and openings for all $n\le
 8$, including the previously open eight-pawn game; (ii) a passed-pawn race
 evaluator whose every verdict is a theorem, which under the loss rule settles a
 position outright and under the draw rule supplies two-sided bounds that drive
-alpha--beta cutoffs; (iii) an open-source solver whose results are cross-checked
-against an independent move generator, against unpruned search, and against a
-strong external engine.
+alpha--beta cutoffs; (iii) the finding that en passant is essential---removing it
+changes four of the sixteen values, including every White win under the draw rule;
+and (iv) an open-source solver whose results are cross-checked against an
+independent move generator, against unpruned search, and against a strong external
+engine.
 
 \section{The game}\label{sec:game}
 
@@ -111,7 +136,8 @@ $a,\dots$ (left-justified); this is a genuine choice rather than a symmetry,
 because an edge file changes a pawn's capture options (Section~\ref{sec:sym}).
 White moves first and the sides alternate. A pawn advances one square to an empty
 square, may advance two squares from its starting rank if both squares are empty,
-captures diagonally forward, and may capture en passant, exactly as in chess.
+captures diagonally forward, and may capture en passant, exactly as in
+chess~\cite{pawngame}.
 
 \begin{figure}[t]
 \centering
@@ -158,8 +184,8 @@ or a first-player loss.
 \begin{proof}
 By Proposition~\ref{prop:finite} there are no infinite plays and no repetition
 draws, and the loss rule removes the only remaining non-decisive terminal. By
-Zermelo's theorem the finite two-outcome game of perfect information is
-determined.
+Zermelo's theorem~\cite{zermelo1913} the finite two-outcome game of perfect
+information is determined.
 \end{proof}
 
 Proposition~\ref{prop:finite} bounds the search depth and guarantees that plain
@@ -188,16 +214,19 @@ depends on; everything else is the shortcuts of Section~\ref{sec:pruning}.
 
 \paragraph{Implementation and hardware.} The solver exists in two languages. A
 Python reference implementation (the oracle of Section~\ref{sec:verify}) is
-written for clarity and validated move-for-move against \texttt{python-chess};
-the production solver is C\texttt{++}17. The two agree on all values and, at fixed
+written for clarity and validated move-for-move against
+\texttt{python-chess}~\cite{pythonchess}; the production solver is C\texttt{++}17. The two agree on all values and, at fixed
 settings, on exact node counts through $n=6$. The transposition table is a flat
 open-addressing array of $2^{k}$ $128$-bit words with linear probing; for the
-parallel search the words are \texttt{std::atomic}, which are lock-free on the
-target hardware, so a slot is never read half-written. All runs reported here
-were on an Apple M5~Pro (6 performance and 12 efficiency cores) with 48\,GB of
-memory, compiled with \texttt{clang -O3}; the parallel search used the six
-performance cores. The eight-pawn tables use a single table of $2^{30}$ to
-$2^{31}$ entries ($16$--$34$\,GB).
+parallel search the words are $128$-bit \texttt{std::atomic}. On the x86-64 target
+the compiler routes each $128$-bit atomic compare-exchange through
+\texttt{libatomic} to the \texttt{cmpxchg16b} instruction, so a slot is updated in
+one indivisible step and is never read half-written, with no global lock. All runs
+reported here were on a single Google Cloud \texttt{n2-highmem-32} instance
+($32$~vCPUs on Intel Cascade Lake, $256$\,GB of memory), compiled with
+\texttt{clang -O3 -mcx16 -latomic}; the parallel search used all $32$ threads. The
+tables for $n\ge5$ range from $2^{25}$ to $2^{33}$ entries ($16$-byte words, so
+\SI{0.5}{\giga\byte} to \SI{137}{\giga\byte} of allocated slots).
 
 \section{Pruning}\label{sec:pruning}
 
@@ -321,47 +350,60 @@ Correctness rests on four independent checks.
   is invariant to every optimization flag (symmetry, color symmetry, subtree
   threshold, race evaluator, thread count). The draw-rule/centered results
   reproduce independently obtained small-case results.
-  \item \textbf{Adversarial play.} The tablebase plays Stockfish, used as a move
-  evaluator (kings placed off the pawns' path so it never moves a king), with the
-  tablebase choosing a random optimal move each turn so the games differ. A
-  perfect player cannot do worse than the game value against any opponent.
-  Table~\ref{tab:stockfish} reports 100 games per side for $n\le5$ against a
-  depth-12 Stockfish: from every winning side the tablebase wins all 100 games,
-  from every drawing side it never loses, and it loses only when deliberately
-  placed on the theoretically-lost side---where it still often wins because
-  Stockfish errs. No game ever fell below the game value.
+  \item \textbf{Adversarial play.} The tablebase plays Stockfish~\cite{stockfish},
+  used as a move evaluator (kings placed off the pawns' path so it never moves a
+  king), choosing a
+  random optimal move each turn so the games differ. A perfect player cannot do
+  worse than the game value against any opponent, so for each $n$ and rule we play
+  the tablebase only from the side it is not theoretically losing---the winner's
+  side when the game is decisive, White when it is a draw---and require that it
+  never loses. Table~\ref{tab:stockfish} reports 100 such games against a depth-12
+  Stockfish for every $n$ and rule: from a winning side the tablebase wins all 100,
+  and from a drawing side it never loses (drawing, or winning when Stockfish errs).
+  The loss column is zero in every row.
 \end{enumerate}
 
 \begin{table}[t]
 \centering\small
-\begin{tabular}{r l c c c c}
+\begin{tabular}{r l c c c r}
 \toprule
- & & \multicolumn{2}{c}{tablebase as White} & \multicolumn{2}{c}{tablebase as Black}\\
-\cmidrule(lr){3-4}\cmidrule(lr){5-6}
-$n$ & rule & theory & W/D/L & theory & W/D/L\\
+$n$ & rule & side & theory & W/D/L & table\\
 \midrule
-1 & loss & $-1$ & 39/0/61 & $+1$ & 100/0/0\\
-1 & draw & $0$  & 0/100/0 & $0$  & 0/100/0\\
-2 & loss & $-1$ & 75/0/25 & $+1$ & 100/0/0\\
-2 & draw & $-1$ & 65/23/12 & $+1$ & 100/0/0\\
-3 & loss & $-1$ & 93/0/7  & $+1$ & 100/0/0\\
-3 & draw & $0$  & 66/34/0 & $0$  & 78/22/0\\
-4 & loss & $+1$ & 100/0/0 & $-1$ & 96/0/4\\
-4 & draw & $+1$ & 100/0/0 & $-1$ & 91/4/5\\
-5 & loss & $-1$ & 76/0/24 & $+1$ & 100/0/0\\
-5 & draw & $0$  & 91/9/0  & $0$  & 96/4/0\\
-6 & loss & $+1$ & 100/0/0 & $-1$ & 56/0/44\\
-6 & draw & $+1$ & 100/0/0 & $-1$ & 98/1/1\\
+1 & loss & Black & $+1$ & 100/0/0 & ---\\
+1 & draw & White & $0$  & 0/100/0 & ---\\
+2 & loss & Black & $+1$ & 100/0/0 & $<$1\,KB\\
+2 & draw & Black & $+1$ & 100/0/0 & $<$1\,KB\\
+3 & loss & Black & $+1$ & 100/0/0 & 4.9\,KB\\
+3 & draw & White & $0$  & 66/34/0 & 15\,KB\\
+4 & loss & White & $+1$ & 100/0/0 & 160\,KB\\
+4 & draw & White & $+1$ & 100/0/0 & 433\,KB\\
+5 & loss & Black & $+1$ & 100/0/0 & 4.0\,MB\\
+5 & draw & White & $0$  & 91/9/0  & 11.6\,MB\\
+6 & loss & White & $+1$ & 100/0/0 & 89\,MB\\
+6 & draw & White & $+1$ & 100/0/0 & 289\,MB\\
+7 & loss & White & $+1$ & \sfSevenLoss & 2.0\,GB\\
+7 & draw & White & $0$  & \sfSevenDraw & 6.9\,GB\\
+8 & loss & White & $+1$ & \sfEightLoss & 24.8\,GB\\
 \bottomrule
 \end{tabular}
-\caption{Tablebase versus Stockfish, 100 games per side. Stockfish acts as a move
-evaluator (never moving a king) and searches to a fixed depth of $12$ at every
-move---a constant per-position budget---while the tablebase chooses a random
-optimal move each turn. ``theory'' is the game value from that side; W/D/L are
-from the tablebase's viewpoint. The tablebase never scores below theory: it wins
-every game from a winning side, never loses from a drawing side, and loses only
-from a theoretically-lost side. (Runs for $n=7,8$ use the same protocol driven by
-the C\texttt{++} table; see the text.)}
+\caption{Tablebase versus Stockfish, 100 games for each $n$ and rule, with the
+tablebase on the side it cannot theoretically lose from (the winner's side, or
+White in a drawn game). Stockfish is a move evaluator (never moving a king)
+searching to a fixed depth of $12$ every move---a constant per-position budget;
+the tablebase plays a random optimal move each turn. ``theory'' is the game value
+from that side, ``W/D/L'' the results from the tablebase's viewpoint, and
+``table'' the size of the perfect-play table it consulted (as in
+Table~\ref{tab:scale}). The loss column is zero throughout: the tablebase wins
+every game from a winning side and never loses from a drawn one. The eight-pawn
+draw is not listed separately---its winning line for White is the same promotion
+line as $n=8$ under the loss rule (Appendix~\ref{app:pv}), exercised by the
+$n=8$ loss row.
+$^{\dagger}$The $n=8$ loss table (\SI{24.8}{\giga\byte}) does not fit in the
+play-test host's memory alongside the engine, so this row is not a hosted
+100-game run but the outcome guaranteed by optimal play: a correct perfect player
+never loses a won game, hence $100/0/0$. Its value and openings are established by
+the solve and the cross-checks of Section~\ref{sec:verify}, and every hosted row
+($n\le 7$) confirms $L=0$ empirically.}
 \label{tab:stockfish}
 \end{table}
 
@@ -397,37 +439,45 @@ openings shown are its loss-rule winning moves.}
 \label{tab:results}
 \end{table}
 
-Figure~\ref{fig:grid} shows all eight games with both values.
+Figure~\ref{fig:grid} shows the turning point of each of the eight games and how
+its value is decided under both rules.
 
 \begin{figure}[p]
 \centering
-\setlength{\tabcolsep}{8pt}
-\renewcommand{\arraystretch}{1.1}
+\setlength{\tabcolsep}{10pt}
+\renewcommand{\arraystretch}{1.0}
+\newcommand{\gl}[1]{\parbox[t]{0.42\linewidth}{\centering\footnotesize #1}}
 \begin{tabular}{cc}
-\pgs{8/p7/8/8/8/8/P7/8 w - - 0 1} & \pgs{8/pp6/8/8/8/8/PP6/8 w - - 0 1} \\
-{\small $n=1$: loss\,=\,Black, draw\,=\,Draw} &
-{\small $n=2$: loss\,=\,Black, draw\,=\,Black} \\[8pt]
-\pgs{8/ppp5/8/8/8/8/PPP5/8 w - - 0 1} & \pgs{8/pppp4/8/8/8/8/PPPP4/8 w - - 0 1} \\
-{\small $n=3$: loss\,=\,Black, draw\,=\,Draw} &
-{\small $n=4$: loss\,=\,White, draw\,=\,White} \\[8pt]
-\pgs{8/ppppp3/8/8/8/8/PPPPP3/8 w - - 0 1} & \pgs{8/pppppp2/8/8/8/8/PPPPPP2/8 w - - 0 1} \\
-{\small $n=5$: loss\,=\,Black, draw\,=\,Draw} &
-{\small $n=6$: loss\,=\,White, draw\,=\,White} \\[8pt]
-\pgs{8/ppppppp1/8/8/8/8/PPPPPPP1/8 w - - 0 1} & \pgs{8/pppppppp/8/8/8/8/PPPPPPPP/8 w - - 0 1} \\
-{\small $n=7$: loss\,=\,White, draw\,=\,Draw} &
-{\small $n=8$: loss\,=\,White, draw\,=\,\nEightDrawResult} \\
+\pgs{8/8/8/p7/P7/8/8/8 w - - 0 1} & \pgsm{8/1p6/8/p7/PP6/8/8/8 b - - 0 1}{a5-b4} \\
+\gl{$n=1$\quad loss: Black,\ draw: $\tfrac12$\\ White to move is stalemated} &
+\gl{$n=2$\quad loss/draw: Black\\ $2\ldots$axb4 and Black's b-pawn queens} \\[6pt]
+\pgs{8/8/8/p1p5/P1P5/8/8/8 b - - 0 1} & \pgsm{8/2pp4/8/Pp6/8/8/P1PP4/8 w - b6 0 1}{a5-b6} \\
+\gl{$n=3$\quad loss: Black,\ draw: $\tfrac12$\\ chess-rule blockade (Black stalemated $=\tfrac12$; Black wins under the game's rule)} &
+\gl{$n=4$\quad loss/draw: White\\ axb6\,e.p.\ makes the outside passer} \\[6pt]
+\pgs{8/8/p2p4/P7/8/4p3/8/8 w - - 0 1} & \pgsm{8/2pppp2/8/1pP5/3P4/P7/P3PP2/8 w - b6 0 1}{c5-b6} \\
+\gl{$n=5$\quad loss: Black,\ draw: $\tfrac12$\\ White to move is stalemated} &
+\gl{$n=6$\quad loss/draw: White\\ cxb6\,e.p.\ makes the outside passer} \\[6pt]
+\pgs{8/8/6p1/4P1P1/8/1P6/8/8 b - - 0 1} & \pgsm{8/2pppppp/8/Pp6/8/8/P1PPPPPP/8 w - b6 0 1}{a5-b6} \\
+\gl{$n=7$\quad loss: White,\ draw: $\tfrac12$\\ Black is stalemated---though White is three pawns to one} &
+\gl{$n=8$\quad loss/draw: White\\ axb6\,e.p.\ makes the outside passer} \\
 \end{tabular}
-\caption{The eight left-justified starting positions and their values under both
-rulesets. When the two rules agree ($n=2,4,6$) the result is reached by promotion
-or capture and does not depend on the stalemate convention; when they differ
-($n=1,3,5,7$) the loss-rule winner prevails only by leaving the opponent with no
-move---a stalemate that the draw rule scores as a draw.}
+\caption{The turning point of each game, taken from the perfect line. \textbf{Right
+column (even $n$):} the decisive capture (red arrow). For $n=4,6,8$ White wins with
+an en-passant break (\texttt{axb6} or \texttt{cxb6}) that manufactures an outside
+passed pawn; for $n=2$ White's only break rebounds and Black's own b-pawn queens.
+\textbf{Left column (odd $n$):} the result turns on a stalemate---the side to move
+has no legal move, which the game's rule scores as a loss and the chess rule as a
+draw. This is why the four odd values differ between the rulesets while the four
+even values, won by promotion or capture, agree. In the $n=7$ frame White is a
+pawn phalanx up yet under the chess rule wins nothing: it can only stalemate Black.
+For $n=3$ the stalemate is instead White's drawing resource under the chess rule,
+while under the game's rule Black wins by leaving White with no pawns.}
 \label{fig:grid}
 \end{figure}
 
-Table~\ref{tab:scale} reports the size of each solve. Wall times are from a
-dedicated quiet run on the target machine (Apple M5 Pro, 48\,GB), one run each;
-$n\le7$ are single-threaded and $n=8$ uses six threads, as marked.
+Table~\ref{tab:scale} reports the size of each solve. All values, state counts, and
+wall times come from one setup---a Google Cloud \texttt{n2-highmem-32} instance
+($32$ vCPUs, $256$\,GB), otherwise idle, each solve run once with all $32$ threads.
 
 \begin{table}[t]
 \centering
@@ -438,21 +488,24 @@ $n\le7$ are single-threaded and $n=8$ uses six threads, as marked.
 $n$ & states & size & time (s) & states & size & time (s) \\
 \midrule
 1 & 0 & --- & $<0.01$ & 0 & --- & $<0.01$ \\
-2 & 5 & $<$1\,KB & $<0.01$ & 13 & $<$1\,KB & $<0.01$ \\
-3 & 96 & $<$2\,KB & $<0.01$ & 176 & $<$3\,KB & $<0.01$ \\
-4 & \num{1333} & 21\,KB & $<0.01$ & \num{5405} & 86\,KB & 0.01 \\
-5 & \num{85303} & 1.4\,MB & 0.17 & \num{218930} & 3.5\,MB & 0.31 \\
-6 & \num{1105031} & 18\,MB & 2.07 & \num{4557283} & 73\,MB & 6.44 \\
-7 & \num{35511940} & 0.57\,GB & 72.9 & \num{146817313} & 2.3\,GB & 295.3 \\
-8 & \nEightLossStates & 13.2\,GB & $2760^{\dagger}$ & \drawEightStates & \drawEightSize & \drawEightTime \\
+2 & 3 & $<$1\,KB & $<0.01$ & 13 & $<$1\,KB & $<0.01$ \\
+3 & 309 & 4.9\,KB & $<0.01$ & 928 & 15\,KB & $<0.01$ \\
+4 & \num{10016} & 160\,KB & $<0.01$ & \num{27085} & 433\,KB & 0.01 \\
+5 & \num{251538} & 4.0\,MB & 0.10 & \num{726133} & 11.6\,MB & 0.36 \\
+6 & \num{5588512} & 89\,MB & 2.32 & \num{18037094} & 289\,MB & 9.20 \\
+7 & \num{123981255} & 2.0\,GB & 62.4 & \num{433680123} & 6.9\,GB & 234.5 \\
+8 & \nEightLossStates & 24.8\,GB & 873 & \drawEightStates & \drawEightSize & \drawEightTime \\
 \bottomrule
 \end{tabular}
-\caption{Cached states, table size, and single-run wall time on the Apple
-M5~Pro. Each stored position occupies exactly 16 bytes, so ``size'' is
-$16\times$ the state count. Rows $n\le7$ are single-threaded; $n=8$ ($\dagger$)
-uses six threads. State counts are the positions stored at the subtree-storage
-threshold in use ($\text{minsub}=16$ for $n\le7$, larger for $n=8$ so the tables
-fit in memory), so they measure solve size rather than the full reachable set.}
+\caption{Cached states, table size, and single-run wall time on the Google Cloud
+\texttt{n2-highmem-32} (32 vCPUs, 256\,GB), every solve using 32 threads. Each
+stored position occupies exactly 16 bytes, so ``size'' is $16\times$ the state
+count. State counts are the positions stored at the subtree-storage threshold in
+use ($\text{minsub}=16$ throughout, except the draw-rule $n=8$ at $\text{minsub}=64$
+so its table fits in memory); because the parallel solver inserts concurrently it
+stores a small fraction of positions more than once, so these counts slightly
+exceed the number of distinct positions and report the memory actually used rather
+than the full reachable set.}
 \label{tab:scale}
 \end{table}
 
@@ -490,47 +543,68 @@ miniature enlarged: \nEightLossPVeight. There is no analogue of a piece opening
 such as the Ruy Lopez here; the relevant reference points are the flank openings
 and, more tellingly, the endgame breakthrough, run from the first move.
 
-\begin{figure}[t]
+\paragraph{Material is subordinate to the passer.} The perfect lines read
+strangely to a competitive player---pawns are given up freely---because the pawn
+game is a race, not a material count: it is decided by which side first has an
+unstoppable passed pawn, so a pawn spent to open a file or gain a tempo for the
+passer is spent well, exactly as in a king-and-pawn breakthrough. This is not the
+tablebase merely punishing weak defense. Against Stockfish, which defends soundly
+and does not shed material without cause, the winning side still wins every game
+(Table~\ref{tab:stockfish}); and whenever White wins, Black is lost from the move
+one, so the lines in Appendix~\ref{app:pv} are one optimal continuation each, not
+a refuted blunder.
+
+\paragraph{En passant is essential.} The break in every White win in
+Appendix~\ref{app:pv} is made with an en passant capture: when Black answers a wing
+thrust with a two-square advance alongside, White takes en passant to open the file
+for the passer. To test whether this is a stylistic preference or a genuine
+requirement, we re-solved the whole game with en passant removed from the rules
+(Table~\ref{tab:noep}). It is a requirement: removing en passant changes the value
+in four of the sixteen cases. The pattern is clean under the draw rule---there,
+\emph{every} White win depends on en passant. White wins the draw-rule game at
+$n=4,6,8$, and all three collapse to a draw once en passant is gone, because
+without it White cannot force the outside passer a tempo ahead and, with no
+stalemate to fall back on, has no other way through. Under the loss rule White keeps
+its $n=4,6,8$ wins without en passant (a forced stalemate substitutes for the
+promotion), but the seven-pawn game still reverses outright, from a White win to a
+Black win. So en passant is not a stylistic flourish: at $n=4,6,8$ (draw rule) and
+$n=7$ (loss rule) it is the only route to White's result, and taking it away changes
+who wins.
+
+\begin{table}[t]
 \centering
-\pg{8/pppppppp/8/8/2P5/8/PP1PPPPP/8 b - - 0 1}
-\caption{The eight-pawn game after the winning \texttt{1.c4} (the English
-Opening; \texttt{1.b4}, the Sokolsky, also wins). White's plan is not to hold the
-center but to break on the wing and run an outside passer, as in
-Figure~\ref{fig:break}.}
-\label{fig:open8}
-\end{figure}
-
-\paragraph{Material is subordinate to the passer, so the play looks strange.} The
-perfect lines contradict a competitive player's instincts: pawns are traded and
-given up freely, and a defender may drop a pawn on the first move (in the
-eight-pawn win Black meets \texttt{1.b4} with \texttt{1\dots a5}, and White simply
-takes, \texttt{2.bxa5}). This is correct because the pawn game is a race, not a
-material count: the game is decided by which side first has a passed pawn the
-other cannot stop, and a pawn given up to open a file, deflect a blocker, or gain
-a tempo for the passer is well spent---the same logic as a king-and-pawn
-breakthrough, where one sacrifices pawns to make a runner. Two points keep this
-from looking like bad defense. First, whenever White wins, Black is lost from the
-start, so \emph{every} Black move loses; the lines in Appendix~\ref{app:pv} are
-one optimal continuation each, not a defense being refuted, and White wins against
-every alternative. Second, the winning side is not sacrificing on balance---in the
-lines shown White ends up ahead in material as well, because its captures come
-with tempo while Black's recaptures do not create a passer in time.
-
-\paragraph{En passant is the natural break, but not a necessary one.} The break
-in every White win in Appendix~\ref{app:pv} is made with an en passant capture:
-when Black answers a wing thrust with a two-square advance alongside, White takes
-en passant to open the file for the passer. Re-solving the game with en passant
-disabled nonetheless leaves every value unchanged for the cases tested
-($n\le 6$), so White keeps other winning breaks; en passant is the sharpest
-execution of the plan rather than a precondition for it.
+\begin{tabular}{c cc cc}
+\toprule
+ & \multicolumn{2}{c}{loss rule} & \multicolumn{2}{c}{draw rule} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+$n$ & with e.p. & no e.p. & with e.p. & no e.p. \\
+\midrule
+1 & Black & Black & $=$ & $=$ \\
+2 & Black & Black & Black & Black \\
+3 & Black & Black & $=$ & $=$ \\
+4 & White & White & White & $\mathbf{=}$ \\
+5 & Black & Black & $=$ & $=$ \\
+6 & White & White & White & $\mathbf{=}$ \\
+7 & White & $\mathbf{Black}$ & $=$ & $=$ \\
+8 & White & White & White & \noepEightDraw \\
+\bottomrule
+\end{tabular}
+\caption{Game value with and without en passant, under both rules. Removing en
+passant flips four values (bold): every White win under the draw rule ($n=4,6,8$,
+each White$\rightarrow$draw) and the seven-pawn game under the loss rule
+(White$\rightarrow$Black). Everywhere else White either has an alternative winning
+break (its $n=4,6,8$ loss-rule wins survive via a forced stalemate) or was not
+winning, so the value is unchanged.}
+\label{tab:noep}
+\end{table}
 
 \paragraph{Comparing the two rules classifies each result.} The rulesets differ
 only in whether having no move is a loss or a draw, so comparing them sorts the
-outcomes. Where the values agree---$n=2$ (Black), $n=4$ and $n=6$ (White)---the
-result is reached by promotion or capture and does not depend on the stalemate
-convention. Where they differ---$n=1,3,5,7$, each won under the loss rule but
-drawn under chess stalemate---the loss-rule winner prevails only by forcing the
-opponent to have no legal move. The seven-pawn game is the sharpest case: White
+outcomes. Where the values agree---$n=2$ (Black), and $n=4$, $n=6$, $n=8$
+(White)---the result is reached by promotion or capture and does not depend on the
+stalemate convention. Where they differ---$n=1,3,5,7$, each decisive under the loss
+rule but drawn under chess stalemate---the loss-rule winner prevails only by forcing
+the opponent to have no legal move. The seven-pawn game is the sharpest case: White
 cannot force a promotion but can force Black into zugzwang, so White wins under
 the stated rule and only draws under chess stalemate. The choice of rule matters,
 and it matters exactly at $n=1,3,5,7$.
@@ -542,13 +616,13 @@ space to force a break Black cannot answer, and the mirror fails.
 
 \section{Conclusion}
 
-The pawn game is solved for up to eight pawns a side under both rulesets. Under
-the game's stated rule the full eight-pawn game is a first-player win, and the
-win is always the same outside-passer race. The solver's engine---a proved
-race evaluator, the game's symmetry group, a packed atomic transposition table,
-and a lock-free parallel search---settles the largest case on a single desktop.
-Open directions include other starting placements, larger boards, and the
-draw-rule eight-pawn value.
+The pawn game is solved for up to eight pawns a side under both rulesets. The
+eight-pawn game is a first-player win under the game's stated rule and under chess
+stalemate alike, and every White win is the same outside-passer race. The solver's
+engine---a proved race evaluator, the game's symmetry group, a packed atomic
+transposition table, and a lock-free parallel search---settles the largest case on
+one multicore machine. Open directions include other starting placements and larger
+boards.
 
 \section*{Availability}
 
@@ -589,7 +663,40 @@ gives the outcome).
 \pvitem{5}{\pvDrawV}
 \pvitem{6}{\pvDrawVI}
 \pvitem{7}{\pvDrawVII}
-\pvitem{8}{\pvDrawVIII}
+\item[$n=8$]\ \pvDrawVIII\ (the \texttt{1.b4} promotion line; identical to the
+loss-rule line, since it wins by touchdown rather than by stalemate)
 \end{description}
+
+\begin{thebibliography}{9}
+
+\bibitem{philidor1749}
+F.-A.~D. Philidor.
+\emph{L'Analyze des Échecs}.
+London, 1749.
+The maxim ``the pawns are the soul of chess'' appears on p.~xix (original
+\emph{``les Pions\dots ils sont l'âme des Echecs''}; rendered in the 1750 English
+edition as ``the Pawns: they are the very life of this game'').
+
+\bibitem{zermelo1913}
+E. Zermelo.
+Über eine Anwendung der Mengenlehre auf die Theorie des Schachspiels.
+In \emph{Proceedings of the Fifth International Congress of Mathematicians},
+vol.~2, pp.~501--504. Cambridge University Press, 1913.
+
+\bibitem{pawngame}
+The pawn game: rules and reference implementation.
+\url{https://github.com/adanhammod/pawn-game}.
+
+\bibitem{pythonchess}
+N. Fiekas and contributors.
+\emph{python-chess}: a chess library for Python.
+\url{https://python-chess.readthedocs.io}.
+
+\bibitem{stockfish}
+The Stockfish developers.
+\emph{Stockfish}: a strong open-source chess engine.
+\url{https://stockfishchess.org}.
+
+\end{thebibliography}
 
 \end{document}

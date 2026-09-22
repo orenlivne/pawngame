@@ -39,6 +39,17 @@ typedef unsigned __int128 u128;
 // correct per-subtree measure without cross-thread interference.
 static thread_local unsigned long long tl_nodes = 0;
 
+// libstdc++ (Linux) has no std::hash<unsigned __int128>, so supply one for the
+// task-dedup set below.
+struct U128Hash {
+    size_t operator()(u128 p) const {
+        u64 lo = (u64)p, hi = (u64)(p >> 64);
+        u64 h = lo * 0x9E3779B97F4A7C15ULL;
+        h ^= hi + 0x9E3779B97F4A7C15ULL + (h << 6) + (h >> 2);
+        return (size_t)h;
+    }
+};
+
 static const int WHITE = 0, BLACK = 1;
 static const int INF_STEPS = 99;
 static const int NONE = 2;               // race "no decision"
@@ -316,7 +327,7 @@ struct Solver {
     // ---- parallel driver: root-subtree splitting over a shared atomic TT ----
     // Collect distinct (canonical) non-terminal positions exactly `depth` plies
     // from the root; each becomes an independent work unit.
-    void collect(const Board& b, int depth, std::unordered_set<u128>& seen, std::vector<Board>& out) {
+    void collect(const Board& b, int depth, std::unordered_set<u128, U128Hash>& seen, std::vector<Board>& out) {
         if (opp_pawns(b) == 0 || my_pawns(b) == 0) return;
         uint16_t moves[64];
         int nm = gen_moves(b, moves);
@@ -333,7 +344,7 @@ struct Solver {
     // subtrees serially; they share the TT, so the exact value is unchanged --
     // parallelism only reorders work and shares transpositions.
     int solve_parallel(const Board& root, int threads, int split_depth) {
-        std::unordered_set<u128> seen;
+        std::unordered_set<u128, U128Hash> seen;
         std::vector<Board> tasks;
         collect(root, split_depth, seen, tasks);
         fprintf(stderr, "  [parallel] %zu task subtrees, %d threads\n", tasks.size(), threads);

@@ -13,6 +13,7 @@ RES=/tmp/results.txt; : > $RES
 push(){ gsutil -q cp $RES gs://$BUCKET/results.txt; gsutil -q cp /var/log/pawn-run.log gs://$BUCKET/run.log; }
 
 export DEBIAN_FRONTEND=noninteractive
+export PATH=/usr/games:$PATH   # Debian installs stockfish under /usr/games
 apt-get update -y
 apt-get install -y clang stockfish python3-pip
 pip3 install --break-system-packages python-chess 2>/dev/null || pip3 install python-chess
@@ -21,7 +22,7 @@ cd /root
 gsutil cp gs://$BUCKET/pawngame.tar.gz .
 tar xzf pawngame.tar.gz
 cd pawngame
-clang++ -O3 -std=c++17 -pthread -o src/cpp/pawnsolver_par src/cpp/pawnsolver_par.cpp
+clang++ -O3 -std=c++17 -pthread -mcx16 -latomic -o src/cpp/pawnsolver_par src/cpp/pawnsolver_par.cpp
 cp src/cpp/pawnsolver_par src/cpp/pawnsolver_srv
 export PAWN_SRV=$PWD/src/cpp/pawnsolver_srv PYTHONPATH=$PWD/src
 NC=$(nproc)
@@ -42,12 +43,12 @@ sf(){ # n rule
 echo "### MACHINE $(nproc)vCPU $(free -g|awk '/Mem/{print $2}')GB $(date)" >> $RES; push
 
 # Priority order; each result is uploaded immediately.
-solve 8 draw 32 ""                 # P1: the missing draw-n8 value (~137 GB table)
+solve 8 draw 64 ""                 # P1: the missing draw-n8 value (~137 GB table)
 solve 8 loss 16 ""                 # P2: loss-n8 (emits both 1.c4 and 1.b4 lines)
 for r in loss draw; do for n in 1 2 3 4 5 6 7; do solve $n $r 16 ""; done; done   # P3: n<=7 ep
 for r in loss draw; do for n in 1 2 3 4 5 6 7; do solve $n $r 16 "--noep"; done; done  # P4: no-e.p.
 solve 8 loss 16 "--noep"
-solve 8 draw 32 "--noep"
+solve 8 draw 64 "--noep"
 sf 7 loss; sf 7 draw; sf 8 loss    # P5: Stockfish winning-side (n<=6 already done on the reference machine)
 
 echo "### ALL DONE $(date)" >> $RES; push
