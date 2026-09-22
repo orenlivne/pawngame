@@ -28,10 +28,10 @@
 \newcommand{\drawEightTime}{4681}
 % Stockfish winning-side W/D/L for n=7,8 (from the GCP run; L must be 0)
 \newcommand{\sfSevenLoss}{100/0/0}
-\newcommand{\sfSevenDraw}{98/2/0}
-\newcommand{\sfEightLoss}{100/0/0$^{\dagger}$}
+\newcommand{\sfSevenDraw}{99/1/0}
+\newcommand{\sfEightLoss}{100/0/0}
 % n=8 draw value without en passant (from the GCP run's final solve)
-\newcommand{\noepEightDraw}{$\mathbf{=}$}
+\newcommand{\noepEightDraw}{$\mathbf{\tfrac12}$}
 \newcommand{\nEightLossPVfour}{\texttt{1.b4 a5 2.b4xa5 b5 3.a5xb6}\,e.p.\
 \texttt{c7xb6 4.a4}, after which White's a/b-passer runs to $b7$ and promotes
 while \texttt{c2xd3} halts Black's counter-runner.}
@@ -88,10 +88,11 @@ win under the chess-stalemate rule ($n=4,6,8$) and the seven-pawn game under the
 game's rule. The solver combines a
 bitboard search with a proved passed-pawn evaluator that settles many positions
 without expanding them, board symmetries, a packed transposition table, and a
-lock-free parallel search; correctness is established by fuzzing move generation
-against an independent engine, by cross-validating every shortcut against
-unpruned search, and by requiring the tablebase never to lose against Stockfish.
-A section aimed at chess players interprets the solution.
+lock-free parallel search; correctness rests on fuzzing move generation against an
+independent engine and cross-validating every shortcut against unpruned search, and
+is further stress-tested by a play-test in which the tablebase never loses to
+Stockfish from a non-losing side. A section aimed at chess players interprets the
+solution.
 \end{abstract}
 
 \section{Introduction}
@@ -99,21 +100,20 @@ A section aimed at chess players interprets the solution.
 The pawn game is a standard teaching position: two pawn phalanxes race toward
 promotion with no pieces to interfere. It isolates the pawn themes---passed
 pawns, breakthroughs, tempo, and the opposition---that decide many endgames.
-Despite its simplicity the game's theoretical value was not settled beyond small
-cases: public analysis established that four pawns a side is a win for White, and
-left the eight-pawn game open.
+Despite its simplicity the game's value beyond the smallest cases does not appear
+to have been settled in print: the four-pawn game is commonly cited as a White win
+(a standard breakthrough exercise), but we are aware of no published complete
+solution for larger $n$, and the eight-pawn game in particular has circulated as an
+open question in informal play~\cite{pawngame}.
 
-The game also earns study for a reason beyond itself. Philidor's maxim that ``the
-pawns are the soul of chess''~\cite{philidor1749} holds that the pawn structure is
-the decisive substrate of a game even with the pieces still on the board. Taken
-seriously, that view makes the pawn game---chess reduced to its soul---a rough proxy
-for the winnability of the full game from a given pawn configuration: which side the
-structure favours, how a passed pawn is manufactured, and when a single tempo
-decides a race are the same questions a player faces with pieces present. Solving
-the pawn game exactly yields not only its own values but transferable patterns---the
-outside passer won by a tempo, the breakthrough sacrifice---that recur whenever
-pawns, rather than pieces, settle a real game. That is the sense in which working
-out this reduced game can return something to one's over-the-board chess.
+The game also has a motivation beyond itself. Philidor's maxim that ``the pawns are
+the soul of chess''~\cite{philidor1749} takes the pawn structure to be a decisive
+factor even when pieces are present; to the extent one accepts that, the pawn game
+isolates a piece of full-chess reasoning---how a passed pawn is made and when a
+tempo wins the race---in a setting where it can be answered exactly. The transfer is
+only partial, since pieces change which breaks are available, but the motifs the
+solution exposes (the outside passer won by a tempo, the breakthrough sacrifice) are
+ones a player meets whenever pawns decide a game.
 
 We determine the game-theoretic value of the $n$-versus-$n$ pawn game for
 $n=1,\dots,8$ under perfect play, under both the game's stated ruleset and the
@@ -237,7 +237,8 @@ expanded---and every verdict it returns is a theorem.
 
 \begin{definition}
 A pawn is an \emph{unstoppable passer} if no enemy pawn stands on its file or on
-either adjacent file ahead of it. Such a pawn can be neither blocked nor
+either adjacent file ahead of it, and no friendly pawn stands ahead of it on its own
+file (so its promotion path is clear). Such a pawn can be neither blocked nor
 captured, so by advancing it every move its owner promotes in a fixed number of
 that owner's moves. Write $a$ (resp.\ $b$) for the least such promotion distance
 over the side-to-move's (resp.\ opponent's) unstoppable passers, or $\infty$ if
@@ -346,21 +347,27 @@ Correctness rests on four independent checks.
   rule (a stalemate defeats the race loss), which is why it is applied there only
   as a bound (Corollary~\ref{cor:racebounds}).
   \item \textbf{Implementation agreement.} The C\texttt{++} core reproduces the
-  reference solver's values---and, at fixed settings, its exact node counts---and
-  is invariant to every optimization flag (symmetry, color symmetry, subtree
-  threshold, race evaluator, thread count). The draw-rule/centered results
-  reproduce independently obtained small-case results.
-  \item \textbf{Adversarial play.} The tablebase plays Stockfish~\cite{stockfish},
-  used as a move evaluator (kings placed off the pawns' path so it never moves a
-  king), choosing a
-  random optimal move each turn so the games differ. A perfect player cannot do
-  worse than the game value against any opponent, so for each $n$ and rule we play
-  the tablebase only from the side it is not theoretically losing---the winner's
-  side when the game is decisive, White when it is a draw---and require that it
-  never loses. Table~\ref{tab:stockfish} reports 100 such games against a depth-12
-  Stockfish for every $n$ and rule: from a winning side the tablebase wins all 100,
-  and from a drawing side it never loses (drawing, or winning when Stockfish errs).
-  The loss column is zero in every row.
+  reference solver's values---and, at fixed settings, its exact node counts---through
+  $n=6$, and through $n=7$ its value is invariant to every optimization flag
+  (symmetry, color symmetry, subtree threshold, race evaluator, thread count),
+  cross-checked against unpruned search where that is feasible. The independent
+  Python oracle does not reach $n=8$, so the eight-pawn values rest on this same
+  solver, exhaustively validated through $n=7$; we flag this as the point where
+  independent corroboration is thinnest. The draw-rule/centered results reproduce
+  independently obtained small-case results.
+  \item \textbf{Adversarial play-test (a one-sided check).} The tablebase plays
+  Stockfish~\cite{stockfish}, used as a move evaluator (kings placed off the pawns'
+  path so it never moves a king), choosing a random optimal move each turn so the
+  games differ. A perfect player cannot do worse than the game value against any
+  opponent, so we play the tablebase only from the side it is not theoretically
+  losing---the winner's side when the game is decisive, White in a draw---and check
+  that it never loses. This is a one-sided test: it would catch a value that is too
+  optimistic (a claimed win or draw that is really lost must eventually lose a game)
+  but not one that is too pessimistic; the exact correctness argument rests on the
+  first two checks. Table~\ref{tab:stockfish} reports 100 games against a depth-12
+  Stockfish for each $n$ and rule, all run on the same \texttt{n2-highmem-32} used
+  for the solves. From a winning side the tablebase wins all 100 and from a drawing
+  side it never loses; the loss column is zero in every row.
 \end{enumerate}
 
 \begin{table}[t]
@@ -374,11 +381,11 @@ $n$ & rule & side & theory & W/D/L & table\\
 2 & loss & Black & $+1$ & 100/0/0 & $<$1\,KB\\
 2 & draw & Black & $+1$ & 100/0/0 & $<$1\,KB\\
 3 & loss & Black & $+1$ & 100/0/0 & 4.9\,KB\\
-3 & draw & White & $0$  & 66/34/0 & 15\,KB\\
+3 & draw & White & $0$  & 61/39/0 & 15\,KB\\
 4 & loss & White & $+1$ & 100/0/0 & 160\,KB\\
 4 & draw & White & $+1$ & 100/0/0 & 433\,KB\\
 5 & loss & Black & $+1$ & 100/0/0 & 4.0\,MB\\
-5 & draw & White & $0$  & 91/9/0  & 11.6\,MB\\
+5 & draw & White & $0$  & 95/5/0  & 11.6\,MB\\
 6 & loss & White & $+1$ & 100/0/0 & 89\,MB\\
 6 & draw & White & $+1$ & 100/0/0 & 289\,MB\\
 7 & loss & White & $+1$ & \sfSevenLoss & 2.0\,GB\\
@@ -395,15 +402,8 @@ from that side, ``W/D/L'' the results from the tablebase's viewpoint, and
 ``table'' the size of the perfect-play table it consulted (as in
 Table~\ref{tab:scale}). The loss column is zero throughout: the tablebase wins
 every game from a winning side and never loses from a drawn one. The eight-pawn
-draw is not listed separately---its winning line for White is the same promotion
-line as $n=8$ under the loss rule (Appendix~\ref{app:pv}), exercised by the
-$n=8$ loss row.
-$^{\dagger}$The $n=8$ loss table (\SI{24.8}{\giga\byte}) does not fit in the
-play-test host's memory alongside the engine, so this row is not a hosted
-100-game run but the outcome guaranteed by optimal play: a correct perfect player
-never loses a won game, hence $100/0/0$. Its value and openings are established by
-the solve and the cross-checks of Section~\ref{sec:verify}, and every hosted row
-($n\le 7$) confirms $L=0$ empirically.}
+draw is not listed separately: White's winning line there is identical to the
+$n=8$ loss promotion line (Appendix~\ref{app:pv}).}
 \label{tab:stockfish}
 \end{table}
 
@@ -421,13 +421,13 @@ seven-pawn win is a stalemate win, which only the loss rule scores as a win.
 \toprule
 $n$ & loss rule & draw rule & White's winning openings \\
 \midrule
-1 & Black & Draw & --- \\
+1 & Black & $\tfrac12$ & --- \\
 2 & Black & Black & --- \\
-3 & Black & Draw & --- \\
+3 & Black & $\tfrac12$ & --- \\
 4 & White & White & $b4,\ c4$ \\
-5 & Black & Draw & --- \\
+5 & Black & $\tfrac12$ & --- \\
 6 & White & White & $c4,\ d4$ \\
-7 & White & Draw & $c4,\ e4$ \\
+7 & White & $\tfrac12$ & $c4,\ e4$ \\
 8 & White & \nEightDrawResult & $b4,\ c4$ (mirrors $g4,f4$) \\
 \bottomrule
 \end{tabular}
@@ -565,9 +565,11 @@ in four of the sixteen cases. The pattern is clean under the draw rule---there,
 $n=4,6,8$, and all three collapse to a draw once en passant is gone, because
 without it White cannot force the outside passer a tempo ahead and, with no
 stalemate to fall back on, has no other way through. Under the loss rule White keeps
-its $n=4,6,8$ wins without en passant (a forced stalemate substitutes for the
-promotion), but the seven-pawn game still reverses outright, from a White win to a
-Black win. So en passant is not a stylistic flourish: at $n=4,6,8$ (draw rule) and
+its $n=4,6,8$ wins without en passant: an alternative promotion break still gets
+through (the no-en-passant lines end in a touchdown), because a defender with no
+move now loses, so Black cannot fall back on the stalemate blockades that hold the
+draw-rule game. But the seven-pawn game still reverses outright, from a White win to
+a Black win. So en passant is not a stylistic flourish: at $n=4,6,8$ (draw rule) and
 $n=7$ (loss rule) it is the only route to White's result, and taking it away changes
 who wins.
 
@@ -579,13 +581,13 @@ who wins.
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}
 $n$ & with e.p. & no e.p. & with e.p. & no e.p. \\
 \midrule
-1 & Black & Black & $=$ & $=$ \\
+1 & Black & Black & $\tfrac12$ & $\tfrac12$ \\
 2 & Black & Black & Black & Black \\
-3 & Black & Black & $=$ & $=$ \\
-4 & White & White & White & $\mathbf{=}$ \\
-5 & Black & Black & $=$ & $=$ \\
-6 & White & White & White & $\mathbf{=}$ \\
-7 & White & $\mathbf{Black}$ & $=$ & $=$ \\
+3 & Black & Black & $\tfrac12$ & $\tfrac12$ \\
+4 & White & White & White & $\mathbf{\tfrac12}$ \\
+5 & Black & Black & $\tfrac12$ & $\tfrac12$ \\
+6 & White & White & White & $\mathbf{\tfrac12}$ \\
+7 & White & $\mathbf{Black}$ & $\tfrac12$ & $\tfrac12$ \\
 8 & White & White & White & \noepEightDraw \\
 \bottomrule
 \end{tabular}
@@ -593,7 +595,7 @@ $n$ & with e.p. & no e.p. & with e.p. & no e.p. \\
 passant flips four values (bold): every White win under the draw rule ($n=4,6,8$,
 each White$\rightarrow$draw) and the seven-pawn game under the loss rule
 (White$\rightarrow$Black). Everywhere else White either has an alternative winning
-break (its $n=4,6,8$ loss-rule wins survive via a forced stalemate) or was not
+break (its $n=4,6,8$ loss-rule wins still promote without en passant) or was not
 winning, so the value is unchanged.}
 \label{tab:noep}
 \end{table}

@@ -1,0 +1,32 @@
+# host: 32vCPU 251GB (n2-highmem-32); stockfish: /usr/games/stockfish; Tue Sep 22 20:49:30 UTC 2026
+### SF n=1 rule=loss
+1 loss B theory=+1  W=100 D=0 L=0
+### SF n=2 rule=loss
+2 loss B theory=+1  W=100 D=0 L=0
+### SF n=3 rule=loss
+3 loss B theory=+1  W=100 D=0 L=0
+### SF n=4 rule=loss
+4 loss W theory=+1  W=100 D=0 L=0
+### SF n=5 rule=loss
+5 loss B theory=+1  W=100 D=0 L=0
+### SF n=6 rule=loss
+6 loss W theory=+1  W=100 D=0 L=0
+### SF n=7 rule=loss
+7 loss W theory=+1  W=100 D=0 L=0
+### SF n=1 rule=draw
+1 draw W theory=+0  W=0 D=100 L=0
+### SF n=2 rule=draw
+2 draw B theory=+1  W=100 D=0 L=0
+### SF n=3 rule=draw
+3 draw W theory=+0  W=61 D=39 L=0
+### SF n=4 rule=draw
+4 draw W theory=+1  W=100 D=0 L=0
+### SF n=5 rule=draw
+5 draw W theory=+0  W=95 D=5 L=0
+### SF n=6 rule=draw
+6 draw W theory=+1  W=100 D=0 L=0
+### SF n=7 rule=draw
+7 draw W theory=+0  W=99 D=1 L=0
+### SF n=8 rule=loss
+8 loss W theory=+1  W=100 D=0 L=0
+### ALL DONE Tue Sep 22 21:28:32 UTC 2026
