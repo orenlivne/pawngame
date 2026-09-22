@@ -38,7 +38,6 @@ class PawnGameSolver:
         """Reconstructs the principal variation (perfect play vs. perfect play) after search() has completed.
         Walks the search tree along the nodes that attain the best score at each depth."""
         board = pawn.board.create_board(self._board_type, fen)
-        print(type(board))
         move, score, first_move = None, -9999, True
         while first_move or move:
             value = self.memo[board.key()]
