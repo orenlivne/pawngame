@@ -25,6 +25,7 @@
 \newcommand{\nEightLossPV}{\emph{[pending]}}
 \newcommand{\nEightDrawResult}{\emph{[pending]}}
 \newcommand{\drawEightStates}{\emph{[pending]}}
+\newcommand{\drawEightSize}{\emph{[pending]}}
 \newcommand{\drawEightTime}{\emph{[pending]}}
 \newcommand{\nEightLossPVfour}{\texttt{1.b4 a5 2.b4xa5 b5 3.a5xb6}\,e.p.\
 \texttt{c7xb6 4.a4}, after which White's a/b-passer runs to $b7$ and promotes
@@ -40,7 +41,8 @@ while \texttt{c2xd3} halts Black's counter-runner.}
 \newcommand{\pvLossV}{1.\,a4 c5 2.\,a5 c4 3.\,a6 bxa6 4.\,b4 cxb3\,e.p. 5.\,cxb3 a5 6.\,d4 a4 7.\,bxa4 d5 8.\,a5 a6 9.\,e4 dxe4 10.\,d5 e3 11.\,d6 exd6}
 \newcommand{\pvLossVI}{1.\,c4 a5 2.\,c5 a4 3.\,d4 a3 4.\,bxa3 b5 5.\,cxb6\,e.p. cxb6 6.\,d5 b5 7.\,d6 exd6 8.\,e4 b4 9.\,axb4 d5 10.\,exd5 f5 11.\,d6 f4 12.\,b5 f3 13.\,b6}
 \newcommand{\pvLossVII}{1.\,c4 a5 2.\,d4 a4 3.\,b4 axb3\,e.p. 4.\,axb3 b5 5.\,cxb5 c5 6.\,bxc6\,e.p. dxc6 7.\,d5 cxd5 8.\,f4 d4 9.\,f5 d3 10.\,exd3 e5 11.\,fxe6\,e.p. fxe6 12.\,g4 e5 13.\,g5 e4 14.\,dxe4 g6 15.\,e5}
-\newcommand{\pvLossVIII}{1.\,b4 a5 2.\,bxa5 b5 3.\,axb6\,e.p. cxb6 4.\,a4 b5 5.\,axb5 d5 6.\,b6 d4 7.\,b7 d3 8.\,cxd3 e5 9.\,b8$\ddagger$}
+\newcommand{\pvLossVIIIb}{1.\,b4 a5 2.\,bxa5 b5 3.\,axb6\,e.p. cxb6 4.\,a4 b5 5.\,axb5 d5 6.\,b6 d4 7.\,b7 d3 8.\,cxd3 e5 9.\,b8$\ddagger$}
+\newcommand{\pvLossVIIIc}{\emph{[pending: 1.c4 line]}}
 \newcommand{\pvDrawI}{1.\,a4 a5}
 \newcommand{\pvDrawII}{1.\,a4 a5 2.\,b4 axb4 3.\,a5 b3 4.\,a6 bxa6}
 \newcommand{\pvDrawIII}{1.\,a4 a5 2.\,c3 b6 3.\,b4 c5 4.\,bxa5 bxa5 5.\,c4}
@@ -348,13 +350,18 @@ $n$ & rule & theory & W/D/L & theory & W/D/L\\
 4 & draw & $+1$ & 100/0/0 & $-1$ & 91/4/5\\
 5 & loss & $-1$ & 76/0/24 & $+1$ & 100/0/0\\
 5 & draw & $0$  & 91/9/0  & $0$  & 96/4/0\\
+6 & loss & $+1$ & 100/0/0 & $-1$ & 56/0/44\\
+6 & draw & $+1$ & 100/0/0 & $-1$ & 98/1/1\\
 \bottomrule
 \end{tabular}
-\caption{Tablebase versus Stockfish, 100 games per side (Stockfish at depth~12 as
-a move evaluator). ``theory'' is the game value from that side; W/D/L are from the
-tablebase's viewpoint. The tablebase never scores below theory: it wins every
-game from a winning side, never loses from a drawing side, and loses only from a
-theoretically-lost side.}
+\caption{Tablebase versus Stockfish, 100 games per side. Stockfish acts as a move
+evaluator (never moving a king) and searches to a fixed depth of $12$ at every
+move---a constant per-position budget---while the tablebase chooses a random
+optimal move each turn. ``theory'' is the game value from that side; W/D/L are
+from the tablebase's viewpoint. The tablebase never scores below theory: it wins
+every game from a winning side, never loses from a drawing side, and loses only
+from a theoretically-lost side. (Runs for $n=7,8$ use the same protocol driven by
+the C\texttt{++} table; see the text.)}
 \label{tab:stockfish}
 \end{table}
 
@@ -368,22 +375,25 @@ seven-pawn win is a stalemate win, which only the loss rule scores as a win.
 
 \begin{table}[t]
 \centering
-\begin{tabular}{ccc}
+\begin{tabular}{cccl}
 \toprule
-$n$ & loss rule & draw rule \\
+$n$ & loss rule & draw rule & White's winning openings \\
 \midrule
-1 & Black & Draw \\
-2 & Black & Black \\
-3 & Black & Draw \\
-4 & White & White \\
-5 & Black & Draw \\
-6 & White & White \\
-7 & White & Draw \\
-8 & White & \nEightDrawResult \\
+1 & Black & Draw & --- \\
+2 & Black & Black & --- \\
+3 & Black & Draw & --- \\
+4 & White & White & $b4,\ c4$ \\
+5 & Black & Draw & --- \\
+6 & White & White & $c4,\ d4$ \\
+7 & White & Draw & $c4,\ e4$ \\
+8 & White & \nEightDrawResult & $b4,\ c4$ (mirrors $g4,f4$) \\
 \bottomrule
 \end{tabular}
 \caption{Game value of the left-justified $n$-versus-$n$ pawn game (White to
-move) under both rulesets.}
+move) under both rulesets. The last column lists every first move that wins for
+White, where White wins; these are the same under both rulesets in the cases that
+White wins under both. For $n=7$ White wins only under the loss rule, and the
+openings shown are its loss-rule winning moves.}
 \label{tab:results}
 \end{table}
 
@@ -421,27 +431,28 @@ $n\le7$ are single-threaded and $n=8$ uses six threads, as marked.
 
 \begin{table}[t]
 \centering
-\begin{tabular}{r r r r r}
+\begin{tabular}{r r r r r r r}
 \toprule
- & \multicolumn{2}{c}{loss rule} & \multicolumn{2}{c}{draw rule} \\
-\cmidrule(lr){2-3}\cmidrule(lr){4-5}
-$n$ & states & time (s) & states & time (s) \\
+ & \multicolumn{3}{c}{loss rule} & \multicolumn{3}{c}{draw rule} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+$n$ & states & size & time (s) & states & size & time (s) \\
 \midrule
-1 & 0 & $<0.01$ & 0 & $<0.01$ \\
-2 & 5 & $<0.01$ & 13 & $<0.01$ \\
-3 & 96 & $<0.01$ & 176 & $<0.01$ \\
-4 & \num{1333} & $<0.01$ & \num{5405} & 0.01 \\
-5 & \num{85303} & 0.17 & \num{218930} & 0.31 \\
-6 & \num{1105031} & 2.07 & \num{4557283} & 6.44 \\
-7 & \num{35511940} & 72.9 & \num{146817313} & 295.3 \\
-8 & \nEightLossStates & $2760^{\dagger}$ & \drawEightStates & \drawEightTime \\
+1 & 0 & --- & $<0.01$ & 0 & --- & $<0.01$ \\
+2 & 5 & $<$1\,KB & $<0.01$ & 13 & $<$1\,KB & $<0.01$ \\
+3 & 96 & $<$2\,KB & $<0.01$ & 176 & $<$3\,KB & $<0.01$ \\
+4 & \num{1333} & 21\,KB & $<0.01$ & \num{5405} & 86\,KB & 0.01 \\
+5 & \num{85303} & 1.4\,MB & 0.17 & \num{218930} & 3.5\,MB & 0.31 \\
+6 & \num{1105031} & 18\,MB & 2.07 & \num{4557283} & 73\,MB & 6.44 \\
+7 & \num{35511940} & 0.57\,GB & 72.9 & \num{146817313} & 2.3\,GB & 295.3 \\
+8 & \nEightLossStates & 13.2\,GB & $2760^{\dagger}$ & \drawEightStates & \drawEightSize & \drawEightTime \\
 \bottomrule
 \end{tabular}
-\caption{Cached states and single-run wall time on the Apple M5~Pro. Rows
-$n\le7$ are single-threaded; $n=8$ ($\dagger$) uses six threads. State counts are
-the number of positions stored at the subtree-storage threshold in use
-($\text{minsub}=16$ for $n\le7$, larger for $n=8$ so the tables fit in memory),
-so they measure solve size rather than the full reachable set.}
+\caption{Cached states, table size, and single-run wall time on the Apple
+M5~Pro. Each stored position occupies exactly 16 bytes, so ``size'' is
+$16\times$ the state count. Rows $n\le7$ are single-threaded; $n=8$ ($\dagger$)
+uses six threads. State counts are the positions stored at the subtree-storage
+threshold in use ($\text{minsub}=16$ for $n\le7$, larger for $n=8$ so the tables
+fit in memory), so they measure solve size rather than the full reachable set.}
 \label{tab:scale}
 \end{table}
 
@@ -565,7 +576,8 @@ gives the outcome).
 \pvitem{5}{\pvLossV}
 \pvitem{6}{\pvLossVI}
 \pvitem{7}{\pvLossVII}
-\pvitem{8}{\pvLossVIII}
+\item[$n=8$]\ (via \texttt{1.c4}, the primary line) \pvLossVIIIc\\
+\phantom{$n=8$}\ (via \texttt{1.b4}) \pvLossVIIIb
 \end{description}
 
 \subsection*{Draw rule}
