@@ -1,0 +1,60 @@
+# pass-variant tablebase-vs-Stockfish, local (Apple Mac); Wed Sep 23 16:34:12 UTC 2026
+  [parallel] 12 task subtrees, 12 threads
+1 loss pass W theory=+1  W=100 D=0 L=0
+  [parallel] 68 task subtrees, 12 threads
+2 loss pass W theory=+1  W=100 D=0 L=0
+  [parallel] 187 task subtrees, 12 threads
+3 loss pass W theory=+1  W=100 D=0 L=0
+  [parallel] 394 task subtrees, 12 threads
+4 loss pass W theory=+1  W=100 D=0 L=0
+  [parallel] 713 task subtrees, 12 threads
+5 loss pass W theory=+1  W=100 D=0 L=0
+  [parallel] 1168 task subtrees, 12 threads
+6 loss pass W theory=+1  W=100 D=0 L=0
+  [parallel] 1783 task subtrees, 12 threads
+  [progress] stored=33554432 (0.5GB)
+  [progress] stored=67108864 (1.1GB)
+  [progress] stored=100663296 (1.6GB)
+  [progress] stored=134217728 (2.1GB)
+  [progress] stored=167772160 (2.7GB)
+  [progress] stored=201326592 (3.2GB)
+  [progress] stored=234881024 (3.8GB)
+  [progress] stored=268435456 (4.3GB)
+  [progress] stored=301989888 (4.8GB)
+  [progress] stored=335544320 (5.4GB)
+  [progress] stored=369098752 (5.9GB)
+  [progress] stored=402653184 (6.4GB)
+  [progress] stored=436207616 (7.0GB)
+7 loss pass W theory=+1  W=100 D=0 L=0
+  [parallel] 12 task subtrees, 12 threads
+1 draw pass W theory=+0  W=0 D=100 L=0
+  [parallel] 68 task subtrees, 12 threads
+2 draw pass W theory=+0  W=36 D=64 L=0
+  [parallel] 187 task subtrees, 12 threads
+3 draw pass W theory=+0  W=62 D=38 L=0
+  [parallel] 394 task subtrees, 12 threads
+4 draw pass W theory=+0  W=83 D=17 L=0
+  [parallel] 713 task subtrees, 12 threads
+5 draw pass W theory=+0  W=87 D=13 L=0
+  [parallel] 1168 task subtrees, 12 threads
+  [progress] stored=33554432 (0.5GB)
+6 draw pass W theory=+0  W=96 D=4 L=0
+  [parallel] 1783 task subtrees, 12 threads
+  [progress] stored=33554432 (0.5GB)
+  [progress] stored=67108864 (1.1GB)
+  [progress] stored=100663296 (1.6GB)
+  [progress] stored=134217728 (2.1GB)
+  [progress] stored=167772160 (2.7GB)
+  [progress] stored=201326592 (3.2GB)
+  [progress] stored=234881024 (3.8GB)
+  [progress] stored=268435456 (4.3GB)
+  [progress] stored=301989888 (4.8GB)
+  [progress] stored=335544320 (5.4GB)
+  [progress] stored=369098752 (5.9GB)
+  [progress] stored=402653184 (6.4GB)
+  [progress] stored=436207616 (7.0GB)
+  [progress] stored=469762048 (7.5GB)
+  [progress] stored=503316480 (8.1GB)
+  [progress] stored=536870912 (8.6GB)
+  [progress] stored=570425344 (9.1GB)
+  [progress] stored=603979776 (9.7GB)

@@ -189,3 +189,5 @@ cython_debug/
 
 # built journal-styled PDF (source is the .tex)
 /submission/pawngame_sage.pdf
+*.bbl
+*.blg

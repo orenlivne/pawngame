@@ -1,0 +1,31 @@
+### MACHINE 32vCPU 251GB Wed Sep 23 14:59:44 UTC 2026
+### SOLVE n=1 rule=loss --pass minsub=16
+n=1 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=3 (0.0GB) visits=90 0.00s (0.0M/s)
+### SOLVE n=2 rule=loss --pass minsub=16
+n=2 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=101 (0.0GB) visits=1281 0.00s (0.4M/s)
+### SOLVE n=3 rule=loss --pass minsub=16
+n=3 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=2528 (0.0GB) visits=32170 0.00s (10.1M/s)
+### SOLVE n=4 rule=loss --pass minsub=16
+n=4 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=49259 (0.0GB) visits=627209 0.02s (32.2M/s)
+### SOLVE n=5 rule=loss --pass minsub=16
+n=5 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=1018062 (0.0GB) visits=12331878 0.34s (36.5M/s)
+### SOLVE n=6 rule=loss --pass minsub=16
+n=6 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=1 (WHITE wins) stored=21705403 (0.3GB) visits=262804014 7.99s (32.9M/s)
+### SOLVE n=7 rule=loss --pass minsub=32
+n=7 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=32 threads=32 value=1 (WHITE wins) stored=386934545 (6.2GB) visits=8824086504 224.29s (39.3M/s)
+### SOLVE n=1 rule=draw --pass minsub=16
+n=1 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=1 (0.0GB) visits=84 0.00s (0.0M/s)
+### SOLVE n=2 rule=draw --pass minsub=16
+n=2 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=122 (0.0GB) visits=2023 0.00s (0.7M/s)
+### SOLVE n=3 rule=draw --pass minsub=16
+n=3 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=4427 (0.0GB) visits=63608 0.00s (23.0M/s)
+### SOLVE n=4 rule=draw --pass minsub=16
+n=4 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=110524 (0.0GB) visits=1377484 0.08s (17.6M/s)
+### SOLVE n=5 rule=draw --pass minsub=16
+n=5 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=2592860 (0.0GB) visits=31226782 1.19s (26.2M/s)
+### SOLVE n=6 rule=draw --pass minsub=16
+n=6 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=16 threads=32 value=0 (DRAW) stored=61399834 (1.0GB) visits=725038641 25.68s (28.2M/s)
+### SOLVE n=7 rule=draw --pass minsub=32
+n=7 rule=draw justify=left sym=1 colorsym=1 race=1 minsub=32 threads=32 value=0 (DRAW) stored=1231693353 (19.7GB) visits=28610417365 949.15s (30.1M/s)
+### SOLVE n=8 rule=loss --pass minsub=128
+n=8 rule=loss justify=left sym=1 colorsym=1 race=1 minsub=128 threads=32 value=1 (WHITE wins) stored=3752595781 (60.0GB) visits=329013322572 6560.87s (50.1M/s)

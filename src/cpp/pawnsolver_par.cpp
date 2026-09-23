@@ -57,18 +57,26 @@ static const int INF_STEPS = 99;
 static const int NONE = 2;               // race "no decision"
 static const u64 MASK48 = 0xFFFFFFFFFFFFULL;
 static int g_noep = 0;  // --noep: play the variant with en passant disabled
+static int g_pass = 0;  // --pass: a player may pass, but not right after the
+                        // opponent passed (no two consecutive passes).
 
 // ------------------------------------------------------------------ board
-struct Board { u64 wp, bp; int8_t turn; int8_t ep; };
+// `canpass` = may the side to move pass? (i.e. the opponent did not just pass).
+// It matters only under --pass; otherwise it stays 1 for every position and the
+// key bit it occupies is constant.
+struct Board { u64 wp, bp; int8_t turn; int8_t ep; int8_t canpass; };
 
 static inline u64 my_pawns(const Board& b)  { return b.turn == WHITE ? b.wp : b.bp; }
 static inline u64 opp_pawns(const Board& b) { return b.turn == WHITE ? b.bp : b.wp; }
 
+static const uint16_t PASS = 0x4000;  // sentinel move: pass (bit 14, out of the
+                                      // 13-bit from/to/ep encoding).
 static inline uint16_t mk_move(int from, int to, int is_ep) { return (uint16_t)(from | (to << 6) | (is_ep << 12)); }
 static inline int mv_from(uint16_t m) { return m & 63; }
 static inline int mv_to(uint16_t m)   { return (m >> 6) & 63; }
 static inline int mv_ep(uint16_t m)   { return (m >> 12) & 1; }
-static inline bool is_touchdown(uint16_t m) { int r = mv_to(m) >> 3; return r == 0 || r == 7; }
+static inline bool is_pass(uint16_t m) { return (m & PASS) != 0; }
+static inline bool is_touchdown(uint16_t m) { if (is_pass(m)) return false; int r = mv_to(m) >> 3; return r == 0 || r == 7; }
 
 // ------------------------------------------------------- precomputed tables
 static u64 g_obstacle[2][64];
@@ -117,11 +125,16 @@ static int gen_moves(const Board& b, uint16_t* out) {
             }
         }
     }
+    if (g_pass && b.canpass) out[n++] = PASS;   // pass is legal unless the opponent just passed
     return n;
 }
 
 static Board apply_move(const Board& b, uint16_t mv) {
     Board c = b;
+    if (is_pass(mv)) {                       // pass: only the turn, ep, and pass-right change
+        c.ep = -1; c.turn = (b.turn == WHITE) ? BLACK : WHITE; c.canpass = 0;
+        return c;
+    }
     int frm = mv_from(mv), to = mv_to(mv), is_ep = mv_ep(mv);
     int d = (b.turn == WHITE) ? 8 : -8;
     u64 from_bit = 1ULL << frm, to_bit = 1ULL << to;
@@ -139,6 +152,7 @@ static Board apply_move(const Board& b, uint16_t mv) {
         }
     }
     c.ep = (int8_t)new_ep; c.turn = (b.turn == WHITE) ? BLACK : WHITE;
+    c.canpass = 1;   // a real move was made, so the opponent may now pass
     return c;
 }
 
@@ -181,22 +195,24 @@ static inline int ep_code(int ep) {
     if (ep >= 40 && ep <= 47) return 9 + (ep - 40);
     return 0;
 }
-static inline u128 pack(u64 wp, u64 bp, int turn, int ep) {
+static inline u128 pack(u64 wp, u64 bp, int turn, int ep, int canpass) {
     u64 wp48 = (wp >> 8) & MASK48, bp48 = (bp >> 8) & MASK48;
     u128 p = (u128)wp48;
     p |= (u128)bp48 << 48;
     p |= (u128)(turn & 1) << 96;
     p |= (u128)(ep_code(ep)) << 97;
+    p |= (u128)(canpass & 1) << 102;   // pass-right (constant unless --pass); symmetry-invariant
     return p;
 }
 static int g_colorsym = 0;
 static u128 canonical_packed(const Board& b) {
-    u128 best = pack(b.wp, b.bp, b.turn, b.ep);
+    int cp = b.canpass;
+    u128 best = pack(b.wp, b.bp, b.turn, b.ep, cp);
     // LR mirror
     {
         u64 wp2 = fliplr_mask(b.wp), bp2 = fliplr_mask(b.bp);
         int ep2 = (b.ep < 0) ? -1 : ((b.ep & ~7) | (7 - (b.ep & 7)));
-        u128 p = pack(wp2, bp2, b.turn, ep2);
+        u128 p = pack(wp2, bp2, b.turn, ep2, cp);
         if (p < best) best = p;
     }
     if (g_colorsym) {
@@ -204,11 +220,11 @@ static u128 canonical_packed(const Board& b) {
         u64 cwp = __builtin_bswap64(b.bp), cbp = __builtin_bswap64(b.wp);
         int cep = (b.ep < 0) ? -1 : (8 * (7 - (b.ep >> 3)) + (b.ep & 7));
         int ct = b.turn ^ 1;
-        { u128 p = pack(cwp, cbp, ct, cep); if (p < best) best = p; }
+        { u128 p = pack(cwp, cbp, ct, cep, cp); if (p < best) best = p; }
         // color-swap + vertical flip + LR
         u64 cwp2 = fliplr_mask(cwp), cbp2 = fliplr_mask(cbp);
         int cep2 = (cep < 0) ? -1 : ((cep & ~7) | (7 - (cep & 7)));
-        { u128 p = pack(cwp2, cbp2, ct, cep2); if (p < best) best = p; }
+        { u128 p = pack(cwp2, cbp2, ct, cep2, cp); if (p < best) best = p; }
     }
     return best;
 }
@@ -246,7 +262,7 @@ struct Solver {
     unsigned long long minsub = 1;   // cache a node only if its subtree had >= minsub new nodes
     bool raceorder = false;          // race-aware move ordering (speed only)
 
-    inline u128 keyof(const Board& b) { return use_sym ? canonical_packed(b) : pack(b.wp, b.bp, b.turn, b.ep); }
+    inline u128 keyof(const Board& b) { return use_sym ? canonical_packed(b) : pack(b.wp, b.bp, b.turn, b.ep, b.canpass); }
 
     // Fail-soft negamax alpha-beta.  Values in {-1,0,1}; call the root with a
     // wide window (-2,2) to get the exact value.  The transposition table stores
@@ -373,6 +389,7 @@ struct Solver {
 
     // ---- perfect-play analysis (run after solve(); reuses the populated TT) ----
     static std::string uci(uint16_t m) {
+        if (is_pass(m)) return "pass";
         auto sq = [](int s) { std::string r; r += char('a' + (s & 7)); r += char('1' + (s >> 3)); return r; };
         return sq(mv_from(m)) + sq(mv_to(m));
     }
@@ -438,7 +455,7 @@ struct Solver {
 };
 
 static Board parse_fen(const std::string& fen) {
-    Board b; b.wp = 0; b.bp = 0; b.turn = WHITE; b.ep = -1;
+    Board b; b.wp = 0; b.bp = 0; b.turn = WHITE; b.ep = -1; b.canpass = 1;
     std::istringstream ss(fen);
     std::string place, turn = "w", ep = "-", tmp;
     ss >> place >> turn >> tmp >> ep;
@@ -456,7 +473,7 @@ static Board parse_fen(const std::string& fen) {
 static Board start_board(int n, const std::string& justify) {
     int space = 8 - n, left;
     if (justify == "left") left = 0; else if (justify == "right") left = space; else left = space / 2;
-    Board b; b.wp = 0; b.bp = 0; b.turn = WHITE; b.ep = -1;
+    Board b; b.wp = 0; b.bp = 0; b.turn = WHITE; b.ep = -1; b.canpass = 1;
     for (int f = left; f < left + n; ++f) { b.wp |= 1ULL << (8 + f); b.bp |= 1ULL << (48 + f); }
     return b;
 }
@@ -489,6 +506,7 @@ int main(int argc, char** argv) {
         else if (a == "--raceorder") raceorder = true;
         else if (a == "--pv") want_pv = true;
         else if (a == "--noep") g_noep = 1;
+        else if (a == "--pass") g_pass = 1;
         else if (a == "--serve") serve = true;
         else if (a == "--depthstats") depthstats = true;
         else if (a.rfind("--sampledepth=", 0) == 0) sampledepth = strtoll(a.c_str() + 14, nullptr, 10);
@@ -531,7 +549,7 @@ int main(int argc, char** argv) {
         // A position's depth is its minimum ply-distance from the start; this is
         // a property of the game graph and does not depend on the loss/draw rule.
         auto keyf = [&](const Board& x){ return use_sym ? canonical_packed(x)
-                                                        : pack(x.wp, x.bp, x.turn, x.ep); };
+                                                        : pack(x.wp, x.bp, x.turn, x.ep, x.canpass); };
         std::unordered_map<u128, int, U128Hash> dist;
         dist.reserve(1u << 20);
         dist[keyf(b)] = 0;
@@ -597,20 +615,22 @@ int main(int argc, char** argv) {
         // random value-preserving (optimal) move in UCI, or "none"/"terminal".
         unsigned long long rng = 88172645463325252ULL;
         auto next_rand = [&]() { rng ^= rng << 13; rng ^= rng >> 7; rng ^= rng << 17; return rng; };
+        int cur_canpass = 1;   // --pass: whether the queried side may pass (set via "cp <0|1>")
         std::cout << "READY" << std::endl;
         std::string line;
         while (std::getline(std::cin, line)) {
             if (line.rfind("seed ", 0) == 0) { rng = strtoull(line.c_str() + 5, nullptr, 10) | 1ULL; std::cout << "ok" << std::endl; continue; }
+            if (line.rfind("cp ", 0) == 0) { cur_canpass = (line.substr(3) == "0") ? 0 : 1; std::cout << "ok" << std::endl; continue; }
             if (line == "quit") break;
             if (line.empty()) continue;
             // "eval <fen>" -> the exact value from the side to move (+1/0/-1).
             if (line.rfind("eval ", 0) == 0) {
-                Board eb = parse_fen(line.substr(5));
+                Board eb = parse_fen(line.substr(5)); eb.canpass = cur_canpass;
                 std::cout << s.solve(eb, -2, 2) << std::endl; continue;
             }
             // "opts <fen>" -> all value-preserving moves; "<fen>" -> one random one.
             bool want_opts = (line.rfind("opts ", 0) == 0);
-            Board pb = parse_fen(want_opts ? line.substr(5) : line);
+            Board pb = parse_fen(want_opts ? line.substr(5) : line); pb.canpass = cur_canpass;
             if (opp_pawns(pb) == 0 || my_pawns(pb) == 0) { std::cout << "terminal" << std::endl; continue; }
             uint16_t moves[64];
             int nm = gen_moves(pb, moves);
