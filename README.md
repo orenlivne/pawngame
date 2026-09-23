@@ -132,6 +132,7 @@ Everything is scripted and deterministic.
 ```bash
 make                       # build the solver
 ./reproduce.sh values      # re-solve all n=1..8, both rules, +/- en passant -> the value tables
+./reproduce.sh depth       # Monte-Carlo game-depth stats (max, mean+/-std) for all n
 ./reproduce.sh tests       # run the full test suite (oracle fuzz + cross-validation)
 ./reproduce.sh stockfish   # tablebase-vs-Stockfish play-test, winning side (needs stockfish on PATH)
 ./reproduce.sh all         # all of the above

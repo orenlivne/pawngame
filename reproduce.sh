@@ -28,6 +28,14 @@ values(){
   echo "### n=8 draw needs ~256 GB RAM -- see gcp/startup.sh"
 }
 
+depth(){
+  need_bin
+  echo "### Game depth (plies) -- Monte-Carlo over 2e6 random games (rule-independent)"
+  for n in 1 2 3 4 5 6 7 8; do
+    "$BIN" $n loss --colorsym --sampledepth=2000000
+  done
+}
+
 tests(){ need_bin; PYTHONPATH="$PWD/src" pytest -q; }
 
 stockfish(){
@@ -42,8 +50,9 @@ stockfish(){
 
 case "${1:-all}" in
   values) values ;;
+  depth) depth ;;
   tests) tests ;;
   stockfish) stockfish ;;
-  all) values; tests; stockfish ;;
-  *) echo "usage: $0 {values|tests|stockfish|all}"; exit 1 ;;
+  all) values; depth; tests; stockfish ;;
+  *) echo "usage: $0 {values|depth|tests|stockfish|all}"; exit 1 ;;
 esac
