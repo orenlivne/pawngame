@@ -27,6 +27,8 @@
 #include <thread>
 #include <vector>
 #include <unordered_set>
+#include <unordered_map>
+#include <cmath>
 #include <sstream>
 #include <iostream>
 #include <cctype>
@@ -473,7 +475,8 @@ int main(int argc, char** argv) {
     int bits = -1;
     unsigned long long minsub = 1;
     bool raceorder = false;
-    bool want_pv = false, serve = false;
+    bool want_pv = false, serve = false, depthstats = false;
+    long long sampledepth = 0;
     int threads = 1, split_depth = 3;
     for (int i = 3; i < argc; ++i) {
         std::string a = argv[i];
@@ -487,12 +490,78 @@ int main(int argc, char** argv) {
         else if (a == "--pv") want_pv = true;
         else if (a == "--noep") g_noep = 1;
         else if (a == "--serve") serve = true;
+        else if (a == "--depthstats") depthstats = true;
+        else if (a.rfind("--sampledepth=", 0) == 0) sampledepth = strtoll(a.c_str() + 14, nullptr, 10);
         else if (a.rfind("--threads=", 0) == 0) threads = atoi(a.c_str() + 10);
         else if (a.rfind("--splitdepth=", 0) == 0) split_depth = atoi(a.c_str() + 13);
     }
     if (bits < 0) bits = default_bits(n);
 
     Board b = start_board(n, justify);
+
+    if (sampledepth > 0) {
+        // Monte-Carlo estimate of game depth: play uniform-random legal games from
+        // the start to a terminal (touchdown, all-captured, or no legal move) and
+        // record the number of plies. Game length is a property of the game graph,
+        // so it does not depend on the loss/draw rule.
+        unsigned long long rng = 88172645463325252ULL;
+        auto nr = [&]() { rng ^= rng << 13; rng ^= rng >> 7; rng ^= rng << 17; return rng; };
+        double sum = 0, sumsq = 0; int mx = 0;
+        for (long long g = 0; g < sampledepth; ++g) {
+            Board cur = b; int d = 0;
+            for (;;) {
+                if (opp_pawns(cur) == 0 || my_pawns(cur) == 0) break;   // all captured
+                uint16_t mv[64]; int nm = gen_moves(cur, mv);
+                if (nm == 0) break;                                     // no legal move
+                uint16_t m = mv[nr() % nm];
+                ++d;
+                if (is_touchdown(m)) break;                            // reached last rank
+                cur = apply_move(cur, m);
+            }
+            sum += d; sumsq += (double)d * d; if (d > mx) mx = d;
+        }
+        double mean = sum / sampledepth, var = sumsq / sampledepth - mean * mean;
+        printf("n=%d sampledepth samples=%lld maxdepth=%d meandepth=%.2f stddepth=%.2f\n",
+               n, sampledepth, mx, mean, var > 0 ? std::sqrt(var) : 0.0);
+        return 0;
+    }
+
+    if (depthstats) {
+        // BFS from the start over the reachable (canonical) position graph.
+        // A position's depth is its minimum ply-distance from the start; this is
+        // a property of the game graph and does not depend on the loss/draw rule.
+        auto keyf = [&](const Board& x){ return use_sym ? canonical_packed(x)
+                                                        : pack(x.wp, x.bp, x.turn, x.ep); };
+        std::unordered_map<u128, int, U128Hash> dist;
+        dist.reserve(1u << 20);
+        dist[keyf(b)] = 0;
+        std::vector<Board> frontier{b};
+        int depth = 0;
+        while (!frontier.empty()) {
+            std::vector<Board> next;
+            for (const Board& cur : frontier) {
+                if (opp_pawns(cur) == 0 || my_pawns(cur) == 0) continue;  // terminal
+                uint16_t mv[64]; int nm = gen_moves(cur, mv);
+                for (int i = 0; i < nm; ++i) {
+                    Board c = apply_move(cur, mv[i]);
+                    u128 k = keyf(c);
+                    if (dist.emplace(k, depth + 1).second) {              // first (=min) time seen
+                        bool terminal = is_touchdown(mv[i]) || opp_pawns(c) == 0 || my_pawns(c) == 0;
+                        if (!terminal) next.push_back(c);
+                    }
+                }
+            }
+            frontier.swap(next);
+            ++depth;
+        }
+        double sum = 0, sumsq = 0; int mx = 0; size_t cnt = dist.size();
+        for (const auto& kv : dist) { int d = kv.second; sum += d; sumsq += (double)d * d; if (d > mx) mx = d; }
+        double mean = sum / cnt, var = sumsq / cnt - mean * mean, sd = var > 0 ? std::sqrt(var) : 0.0;
+        printf("n=%d depthstats positions=%zu maxdepth=%d meandepth=%.2f stddepth=%.2f\n",
+               n, cnt, mx, mean, sd);
+        return 0;
+    }
+
     Solver s; s.stalemate_is_loss = loss; s.use_race = use_race; s.use_sym = use_sym; s.minsub = minsub; s.raceorder = raceorder;
     s.tt.init(bits);
 

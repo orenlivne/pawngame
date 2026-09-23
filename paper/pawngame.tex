@@ -484,20 +484,20 @@ wall times come from one setup---a Google Cloud \texttt{n2-highmem-32} instance
 
 \begin{table}[t]
 \centering
-\begin{tabular}{r r r r r r r}
+\begin{tabular}{r r r r r r r r r}
 \toprule
- & \multicolumn{3}{c}{loss rule} & \multicolumn{3}{c}{draw rule} \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-7}
-$n$ & states & size & time (s) & states & size & time (s) \\
+ & \multicolumn{3}{c}{loss rule} & \multicolumn{3}{c}{draw rule} & \multicolumn{2}{c}{depth (plies)} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-9}
+$n$ & states & size & time (s) & states & size & time (s) & max & mean$\pm$std \\
 \midrule
-1 & 0 & --- & $<0.01$ & 0 & --- & $<0.01$ \\
-2 & 3 & $<$1\,KB & $<0.01$ & 13 & $<$1\,KB & $<0.01$ \\
-3 & 309 & 4.9\,KB & $<0.01$ & 928 & 15\,KB & $<0.01$ \\
-4 & \num{10016} & 160\,KB & $<0.01$ & \num{27085} & 433\,KB & 0.01 \\
-5 & \num{251538} & 4.0\,MB & 0.10 & \num{726133} & 11.6\,MB & 0.36 \\
-6 & \num{5588512} & 89\,MB & 2.32 & \num{18037094} & 289\,MB & 9.20 \\
-7 & \num{123981255} & 2.0\,GB & 62.4 & \num{433680123} & 6.9\,GB & 234.5 \\
-8 & \nEightLossStates & 24.8\,GB & 873 & \drawEightStates & \drawEightSize & \drawEightTime \\
+1 & 0 & --- & $<0.01$ & 0 & --- & $<0.01$ & 4 & $3.0\pm0.7$ \\
+2 & 3 & $<$1\,KB & $<0.01$ & 13 & $<$1\,KB & $<0.01$ & 17 & $9.8\pm3.3$ \\
+3 & 309 & 4.9\,KB & $<0.01$ & 928 & 15\,KB & $<0.01$ & 26 & $14.2\pm3.4$ \\
+4 & \num{10016} & 160\,KB & $<0.01$ & \num{27085} & 433\,KB & 0.01 & 35 & $18.7\pm3.5$ \\
+5 & \num{251538} & 4.0\,MB & 0.10 & \num{726133} & 11.6\,MB & 0.36 & 40 & $22.9\pm3.7$ \\
+6 & \num{5588512} & 89\,MB & 2.32 & \num{18037094} & 289\,MB & 9.20 & 45 & $26.8\pm4.1$ \\
+7 & \num{123981255} & 2.0\,GB & 62.4 & \num{433680123} & 6.9\,GB & 234.5 & 51 & $30.5\pm4.6$ \\
+8 & \nEightLossStates & 24.8\,GB & 873 & \drawEightStates & \drawEightSize & \drawEightTime & 57 & $34.1\pm5.1$ \\
 \bottomrule
 \end{tabular}
 \caption{Cached states, table size, and single-run wall time on the Google Cloud
@@ -508,9 +508,18 @@ use ($\text{minsub}=16$ throughout, except the draw-rule $n=8$ at $\text{minsub}
 so its table fits in memory); because the parallel solver inserts concurrently it
 stores a small fraction of positions more than once, so these counts slightly
 exceed the number of distinct positions and report the memory actually used rather
-than the full reachable set.}
+than the full reachable set. Depth (plies from the start to the end of the game) is
+the same under both rules; ``max'' and ``mean$\pm$std'' are a Monte-Carlo estimate
+over $2\times10^{6}$ uniform-random games.}
 \label{tab:scale}
 \end{table}
+
+The game is wide but shallow. A game lasts on the order of $4n$ plies: the mean
+depth rises from $3$ plies at $n=1$ to $34\pm5$ at $n=8$, and the longest of two
+million random games was $57$ plies---well inside the $96$-ply worst-case bound of
+Proposition~\ref{prop:finite}. The two axes scale very differently with $n$: the
+number of states grows exponentially (each added pawn multiplies the solved table
+by roughly an order of magnitude), while the depth grows only about linearly.
 
 \section{What it means to chess players}\label{sec:chess}
 
