@@ -63,6 +63,10 @@ capture before the passer even needs to promote.}
 \newcommand{\pgsm}[2]{\chessboard[setfen={#1}, showmover=false, boardfontsize=7pt,
   label=false, pgfstyle=straightmove, color=red, linewidth=0.12em, markmoves={#2}]}
 
+\setcounter{secnumdepth}{3}   % sagej.cls defaults to -2 (no section numbers), which
+                               % left every "Section~\ref{...}" / "Appendix~\ref{...}"
+                               % blank; restore normal numbering.
+
 \begin{document}
 
 \runninghead{Livne}
@@ -70,8 +74,9 @@ capture before the passer even needs to promote.}
 \title{Exact Solution of the Pawn Game for up to Eight Pawns per Side}
 
 \author{Oren Livne\affilnum{1}}
-\affiliation{\affilnum{1}Affiliation to be provided (corresponding author details below)}
-\corrauth{Oren Livne.}
+\affiliation{\affilnum{1}Pine Birch Analytics, LLC, Churchville, PA, USA}
+\corrauth{Oren Livne, Pine Birch Analytics, LLC, 35 Kelinger Rd, Churchville, PA
+18966-1033, USA. ORCID iD: 0000-0001-6700-483X.}
 \email{oren.livne@gmail.com}
 
 \begin{abstract}
@@ -79,10 +84,9 @@ The pawn game is chess played with pawns only: each side starts with $n$ pawns
 on its second rank, pawns move and capture as in chess (including the initial
 double step and en passant), and a player wins by advancing a pawn to the far
 rank, by capturing every enemy pawn, or by leaving the opponent with no legal
-move. We solve the game exactly for $n=1,\dots,8$ pawns per side (left-justified
-for $n<8$) under two rulesets that differ only in the treatment of a player with
+move. We solve the game exactly for $n=1,\dots,8$ pawns per side under two rulesets that differ only in the treatment of a player with
 no legal move: a \emph{loss} (the game's stated rule) or a \emph{draw} (chess
-stalemate). Under the loss rule the game is finite and drawless, and the full
+stalemate). Under the loss rule, the game is finite and drawless, and the full
 eight-pawn game is a first-player win; White wins for every $n\ge 6$ and for
 $n=4$, while Black wins for $n=1,2,3,5$. We give the outcomes under both rulesets,
 the optimal opening moves, and the winning technique. En passant proves essential
@@ -104,15 +108,13 @@ race; en passant; alpha--beta search; transposition table; chess endgames}
 \maketitle
 
 \section{Introduction}
-
-The pawn game is a standard teaching position: two pawn phalanxes race toward
-promotion with no pieces to interfere. It isolates the pawn themes---passed
+The pawn game was introduced to me by my chess coach FIDE Master Carl Boor, who learned it from his father. It is a standard teaching position: two pawn phalanxes race toward promotion with no pieces to interfere. It isolates the pawn themes---passed
 pawns, breakthroughs, tempo, and the opposition---that decide many endgames.
-Despite its simplicity the game's value beyond the smallest cases does not appear
+Despite its simplicity, the game's value beyond the smallest cases does not appear
 to have been settled in print: the four-pawn game is commonly cited as a White win
 (a standard breakthrough exercise), but we are aware of no published complete
 solution for larger $n$, and the eight-pawn game in particular has circulated as an
-open question in informal play~\cite{pawngame}.
+open question in informal play~\cite{pawngame,lichess}.
 
 The game also has a motivation beyond itself. Philidor's maxim that ``the pawns are
 the soul of chess''~\cite{philidor1749} takes the pawn structure to be a decisive
@@ -133,15 +135,15 @@ position outright and under the draw rule supplies two-sided bounds that drive
 alpha--beta cutoffs; (iii) the finding that en passant is essential---removing it
 changes four of the sixteen values, including every White win under the draw rule;
 and (iv) an open-source solver whose results are cross-checked against an
-independent move generator, against unpruned search, and against a strong external
+independent move generator, against unpruned search, and against a strong external chess
 engine.
 
 \section{The game}\label{sec:game}
 
 The board is the $8\times8$ chessboard. White places $n$ pawns on rank~2 and
 Black $n$ pawns on rank~7, on the same $n$ files. For $n<8$ we take the files
-$a,\dots$ (left-justified); this is a genuine choice rather than a symmetry,
-because an edge file changes a pawn's capture options (Section~\ref{sec:sym}).
+$a,\dots$ (left-justified); this is simply a labeling convention, so that the
+$n$-pawn game always uses the same $n$ leftmost files.
 White moves first and the sides alternate. A pawn advances one square to an empty
 square, may advance two squares from its starting rank if both squares are empty,
 captures diagonally forward, and may capture en passant, exactly as in
@@ -175,7 +177,7 @@ directed acyclic graph, and no position repeats.
 \end{proposition}
 
 \begin{proof}
-Every legal move advances exactly one pawn one or two ranks toward promotion;
+Every legal move advances exactly one pawn by one or two ranks toward promotion;
 captures advance the capturing pawn one rank. A pawn that starts on its own
 second rank reaches the far rank after at most six rank-advances, so each of the
 at most $16$ original pawns makes at most six moves before it promotes (ending the
@@ -185,7 +187,7 @@ increases, so no position can recur; the position graph is acyclic.
 \end{proof}
 
 \begin{corollary}\label{cor:nodraw}
-Under the loss rule the game has no draws: every position is a first-player win
+Under the loss rule, the game has no draws: every position is a first-player win
 or a first-player loss.
 \end{corollary}
 
@@ -223,7 +225,8 @@ depends on; everything else is the shortcuts of Section~\ref{sec:pruning}.
 \paragraph{Implementation and hardware.} The solver exists in two languages. A
 Python reference implementation (the oracle of Section~\ref{sec:verify}) is
 written for clarity and validated move-for-move against
-\texttt{python-chess}~\cite{pythonchess}; the production solver is C\texttt{++}17. The two agree on all values and, at fixed
+\texttt{python-chess}~\cite{pythonchess}; the production solver is implemented in
+C\texttt{++}17. The two agree on all values and, at fixed
 settings, on exact node counts through $n=6$. The transposition table is a flat
 open-addressing array of $2^{k}$ $128$-bit words with linear probing; for the
 parallel search the words are $128$-bit \texttt{std::atomic}. On the x86-64 target
@@ -274,9 +277,9 @@ needing at least $c_w$ of its moves, i.e.\ not before ply $2c_w-1\ge 2b+1>2b$.
 \end{proof}
 
 The two conditions are mutually exclusive, since $a\le c_b\le b$ and $b<c_w\le a$
-are contradictory. The verdict is independent of the ruleset in the sense that no
-one is stalemated in these lines, but the \emph{loss}-rule reading of a stalemate
-is what makes the argument tight.
+are contradictory. The verdict is independent of the ruleset in the sense that
+neither side is stalemated in these lines, but the \emph{loss}-rule reading of a
+stalemate is what makes the argument tight.
 
 \begin{corollary}[Draw rule]\label{cor:racebounds}
 Under the draw rule: if $a\le c_b$ then the value is $\ge 0$; if $b<c_w$ then the
@@ -290,8 +293,8 @@ draw rule a stalemate the opponent might reach is a draw, so the value is $\ge 0
 rather than necessarily $+1$. The case $b<c_w$ is symmetric.
 \end{proof}
 
-Under the loss rule Theorem~\ref{thm:race} yields exact leaves. Under the draw
-rule Corollary~\ref{cor:racebounds} yields one-sided bounds around $0$, injected
+Under the loss rule, Theorem~\ref{thm:race} yields exact leaves. Under the draw
+rule, Corollary~\ref{cor:racebounds} yields one-sided bounds around $0$, injected
 into the search as window tightening: a lower bound of $0$ raises $\alpha$ and
 cuts when $0\ge\beta$; an upper bound of $0$ lowers $\beta$ and cuts when
 $0\le\alpha$. This is where the two rulesets differ in difficulty: under the loss
@@ -319,10 +322,7 @@ The game is invariant under mirroring the files and under swapping colors combin
 with a vertical flip; together these generate the game's symmetry group, of order
 four (a vertical flip alone is not a symmetry, as pawns would move the wrong way).
 We fold each position to the least of its up-to-four images and key the
-transposition table by that representative. File translation is \emph{not} a
-symmetry: an edge pawn has only one capture direction, so shifting the phalanx
-changes the game---this is why left-justified $n<8$ positions are solved as
-posed.
+transposition table by that representative.
 
 \subsection{Memory and parallelism}\label{sec:mem}
 
@@ -361,8 +361,9 @@ Correctness rests on four independent checks.
   cross-checked against unpruned search where that is feasible. The independent
   Python oracle does not reach $n=8$, so the eight-pawn values rest on this same
   solver, exhaustively validated through $n=7$; we flag this as the point where
-  independent corroboration is thinnest. The draw-rule/centered results reproduce
-  independently obtained small-case results.
+  independent corroboration is thinnest. As a further check, small-case draw-rule
+  results with the pawns centered rather than left-justified reproduce values
+  obtained independently, from an earlier, separate implementation.
   \item \textbf{Adversarial play-test (a one-sided check).} The tablebase plays
   Stockfish~\cite{stockfish}, used as a move evaluator (kings placed off the pawns'
   path so it never moves a king), choosing a random optimal move each turn so the
@@ -420,10 +421,10 @@ $n=8$ loss promotion line (Appendix~\ref{app:pv}).}
 \section{Results}\label{sec:results}
 
 Table~\ref{tab:results} gives the value of the $n$-versus-$n$ game under both
-rulesets, from White's viewpoint. Under the loss rule the sequence for
+rulesets, from White's viewpoint. Under the loss rule, the sequence for
 $n=1,\dots,8$ is \resLoss: White wins for every $n\ge 6$ and for $n=4$. Under the
-draw rule wins are rarer, and $n=7$ differs between the rulesets---White's
-seven-pawn win is a stalemate win, which only the loss rule scores as a win.
+draw rule, wins are rarer, and $n=7$ differs between the rulesets---White's
+seven-pawn win is by stalemate, which only the loss rule counts as a win.
 
 \begin{table*}
 \centering
@@ -526,7 +527,8 @@ depth rises from $3$ plies at $n=1$ to $34\pm5$ at $n=8$, and the longest of two
 million random games was $57$ plies---well inside the $96$-ply worst-case bound of
 Proposition~\ref{prop:finite}. The two axes scale very differently with $n$: the
 number of states grows exponentially (each added pawn multiplies the solved table
-by roughly an order of magnitude), while the depth grows only about linearly.
+by roughly an order of magnitude), while the depth grows only roughly linearly
+with $n$.
 
 \section{What it means to chess players}\label{sec:chess}
 
@@ -561,7 +563,8 @@ $c4$---the English Opening---and $b4$---the Sokolsky; White declines the center
 outright and promotes a pawn on the $b$-file. The eight-pawn win is the four-pawn
 miniature enlarged: \nEightLossPVeight. There is no analogue of a piece opening
 such as the Ruy Lopez here; the relevant reference points are the flank openings
-and, more tellingly, the endgame breakthrough, run from the first move.
+and, more tellingly, the endgame breakthrough technique---executed here starting
+from the first move.
 
 \paragraph{Material is subordinate to the passer.} The perfect lines read
 strangely to a competitive player---pawns are given up freely---because the pawn
@@ -584,8 +587,8 @@ in four of the sixteen cases. The pattern is clean under the draw rule---there,
 \emph{every} White win depends on en passant. White wins the draw-rule game at
 $n=4,6,8$, and all three collapse to a draw once en passant is gone, because
 without it White cannot force the outside passer a tempo ahead and, with no
-stalemate to fall back on, has no other way through. Under the loss rule White keeps
-its $n=4,6,8$ wins without en passant: an alternative promotion break still gets
+stalemate to fall back on, has no other way through. Under the loss rule, White
+keeps its $n=4,6,8$ wins without en passant: an alternative promotion break still gets
 through (the no-en-passant lines end in a touchdown), because a defender with no
 move now loses, so Black cannot fall back on the stalemate blockades that hold the
 draw-rule game. But the seven-pawn game still reverses outright, from a White win to
@@ -632,7 +635,7 @@ the stated rule and only draws under chess stalemate. The choice of rule matters
 and it matters exactly at $n=1,3,5,7$.
 
 \paragraph{Symmetry breaks in White's favor once the board is full enough.} For
-small $n$ Black holds by mirroring; the first-move advantage is not enough to
+small $n$, Black holds by mirroring; the first-move advantage is not enough to
 break a short, thin phalanx. From $n=6$ on (and already at $n=4$), White has the
 space to force a break Black cannot answer, and the mirror fails.
 
@@ -709,6 +712,10 @@ vol.~2, pp.~501--504. Cambridge University Press, 1913.
 \bibitem{pawngame}
 The pawn game: rules and reference implementation.
 \url{https://github.com/adanhammod/pawn-game}.
+
+\bibitem{lichess}
+Pawn game solution. Lichess forum, General Chess Discussion.
+\url{https://lichess.org/forum/general-chess-discussion/pawn-game-solution}.
 
 \bibitem{pythonchess}
 N. Fiekas and contributors.
