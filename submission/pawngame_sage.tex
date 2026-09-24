@@ -393,7 +393,12 @@ Correctness rests on four independent checks.
   Stockfish for each $n$ and rule (the $n=8$ draw excepted, as its winning line
   coincides with the $n=8$ loss line), all run on the same \texttt{n2-highmem-32}
   used for the solves. From a winning side the tablebase wins all 100 and from a
-  drawing side it never loses; the loss column is zero in every row.
+  drawing side it never loses; the loss column is zero in every row. The drawn rows
+  carry a second lesson: from the drawing side the tablebase does not merely hold but
+  wins most games---99 of 100 at $n=7$---because at a fixed search depth Stockfish
+  cannot hold these theoretical draws. A general engine's evaluation, built for
+  positions with kings and pieces, is unreliable in kingless pawn races; only the
+  exact table plays them correctly.
 \end{enumerate}
 
 \begin{table*}
@@ -551,11 +556,16 @@ with $n$.
 
 The solution has a consistent shape a player can use.
 
-\paragraph{The winning method is an outside passed pawn won by a tempo.} In every
-White win the plan is the same: a wing pawn break manufactures a passed pawn on
-the flank, and White promotes it one move ahead of Black's counterplay because the
-combination of moving first and the tempo gained by the break wins the race. The
-four-pawn win is the clearest miniature (Figure~\ref{fig:break}): \nEightLossPVfour
+\paragraph{The winning method is an outside passed pawn the defender cannot answer.}
+In every White win the plan is the same: a wing break manufactures a passed pawn on
+the flank that Black cannot stop, while White's remaining pawns hold or capture
+Black's counter-pawn---so White ends with an outside passer and Black with none. The
+decisive asymmetry is that only one side gets a passer; it is not a symmetric race in
+which both promote and White is a move quicker---in the lines below Black's
+counter-runner is captured, not out-promoted. What tips the asymmetry to White is the
+tempo: moving first, and the tempo the wing break gains, let White be the side that
+emerges with the passer while its reserve pawns suffice to stop Black's. The four-pawn
+win is the clearest miniature (Figure~\ref{fig:break}): \nEightLossPVfour
 
 \begin{figure}[t]
 \centering
@@ -579,20 +589,25 @@ and with eight \nEightLossOpening. On the full board the winning first moves hap
 to coincide with the flank openings---$c4$ (English) and $b4$ (Sokolsky)---though
 the resemblance is only the move itself: here White declines the center to promote a
 pawn on the $b$-file, not to fight for it with pieces. The eight-pawn win is the
-four-pawn miniature enlarged: \nEightLossPVeight. There is no analogue of a piece
-opening such as the Ruy Lopez here; the relevant reference point is the endgame
-breakthrough technique---executed here starting from the first move.
+four-pawn miniature enlarged: \nEightLossPVeight. There is no analogue here of the
+pawn structures that arise from an opening such as the Ruy Lopez; and where $1.e4$
+is Fischer's famous ``best by test'' in chess, on the full board it does not win the
+pawn game at all---the only winning first moves are the flank breaks $b4$ and $c4$
+(with mirrors $f4$, $g4$). The relevant reference point is the endgame breakthrough
+technique, executed here from the first move.
 
 \paragraph{Material is subordinate to the passer.} The perfect lines read
 strangely to a competitive player---pawns are given up freely---because the pawn
-game is a race, not a material count: it is decided by which side first has an
-unstoppable passed pawn, so a pawn spent to open a file or gain a tempo for the
-passer is spent well, exactly as in a king-and-pawn breakthrough. This is not the
-tablebase merely punishing weak defense. Against Stockfish, which defends soundly
+game is decided by passers, not by a material count: what matters is which side
+ends with an unstoppable passed pawn, so a pawn spent to open a file or gain a tempo
+for the passer is spent well, exactly as in a king-and-pawn breakthrough. This is not
+the tablebase merely punishing weak defense. Against Stockfish, which defends soundly
 and does not shed material without cause, the winning side still wins every game
-(Table~\ref{tab:stockfish}); and whenever White wins, Black is lost from move
-one, so the lines in Appendix~\ref{app:pv} are each one optimal continuation, not
-a refuted blunder.
+(Table~\ref{tab:stockfish}); and whenever White wins, Black is lost from move one---no
+Black reply does better---so the lines in Appendix~\ref{app:pv} show optimal play by
+both sides in the game-theoretic (value-preserving) sense, not White exploiting a
+blunder. They are value-optimal, not tuned for longest resistance; the precise sense
+is given in Appendix~\ref{app:pv}.
 
 \paragraph{En passant is essential.} The break in every White win in
 Appendix~\ref{app:pv} is made with an en-passant capture: when Black answers a wing
@@ -759,16 +774,20 @@ and reproduction instructions, at \url{https://github.com/orenlivne/pawngame}
 
 \section*{Acknowledgments}
 
-I am grateful to FIDE Master Carl Boor, who introduced me to the pawn game and whose
-questions---on the pattern of the values, on what happens if a player may pass, and
-on which pawn structures still break through under passive defense---prompted the
-pass variant of Section~\ref{sec:pass} and the discussion of patterns.
+I am grateful to FIDE Master Carl Boor for introducing me to the pawn game and for
+valuable correspondence, including the questions that prompted the pass variant of
+Section~\ref{sec:pass} and the discussion of patterns.
 
 \appendix
 \section{Principal variations}\label{app:pv}
 
-Each line is the perfect game from the left-justified start under optimal play by
-both sides. Notation: a straight push is written as its destination square; a
+Each line is a perfect game from the left-justified start under optimal play by both
+sides. Here ``optimal'' means value-preserving: every move keeps the position's
+game-theoretic value, so the winner retains the win and the loser can do no better
+(from a lost position every legal move loses equally). These are therefore
+value-optimal lines rather than lines chosen to maximize the loser's resistance;
+among value-equal moves the solver follows a fixed ordering, so each line is one
+representative of perfect play, not the unique or the longest one. Notation: a straight push is written as its destination square; a
 diagonal move is a capture \texttt{<file>x<dest>}, with \texttt{e.p.} for en
 passant; $\ddagger$ marks the touchdown that ends the game. White's moves are
 numbered. A line that ends without a $\ddagger$ terminates either by the capture of
