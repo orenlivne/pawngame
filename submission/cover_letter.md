@@ -1,10 +1,10 @@
 # Cover letter — ICGA Journal submission
 
 Oren Livne
-oren.livne@gmail.com
-[Affiliation and postal address — to be completed]
+Pine Birch Analytics, LLC, 35 Kelinger Rd, Churchville, PA 18966-1033, USA
+oren.livne@gmail.com · ORCID 0000-0001-6700-483X
 
-22 September 2026
+24 September 2026
 
 Dear Editor-in-Chief,
 
@@ -35,8 +35,14 @@ for three reasons:
    game under the loss rule.
 
 3. **A section written for chess players**, connecting the solution to over-the-board
-   themes (the outside passer won by a tempo, the breakthrough sacrifice), in the
+   themes (the unstoppable outside passer, the breakthrough sacrifice), in the
    spirit of Philidor's maxim that the pawns are the soul of chess.
+
+4. **A third rule variant that isolates the role of tempo.** Allowing a player to
+   pass (but not twice running) makes every game a first-player win under the stated
+   rule and a draw under chess stalemate, showing the pawn game's outcomes to be
+   governed by zugzwang. This variant was prompted by correspondence with FIDE Master
+   Carl Boor and is verified the same way as the base game.
 
 Correctness is established by fuzzing the move generator against an independent
 engine and by cross-validating every search shortcut against unpruned search;
