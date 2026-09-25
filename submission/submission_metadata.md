@@ -2,11 +2,19 @@
 
 The *ICGA Journal* is published by SAGE and submitted through ScholarOne /
 Manuscript Central (https://mc.manuscriptcentral.com/icga, linked from
-https://journals.sagepub.com/home/icg). Peer review is **single-blind** by default
-(double-blind on request). SAGE accepts **free-format initial submissions** — the
-generic PDF is acceptable at first submission; the `sagej` SAGE LaTeX class is
-required at revision/acceptance. Both versions are provided in this folder (see
-"Files" below). Fill the bracketed placeholders before uploading.
+https://journals.sagepub.com/home/icg). Peer review identity transparency is
+**single anonymized** (reviewers know the author; the author does not know
+reviewers). SAGE accepts **free-format initial submissions** — the generic PDF is
+acceptable at first submission; the `sagej` SAGE LaTeX class is required at
+revision/acceptance. Both versions are provided in this folder (see "Files" below).
+
+**Reference style: APA**, confirmed against both the live "Preparing your
+manuscript" guidelines ("The journal follows the APA reference style") and a
+2026 published ICGA Journal article's actual reference list (author-year,
+`Author, A. (Year). Title. Source.`). The manuscript uses the `sagej` class's
+`sageapa` option (loads `mslapa`), with each `\bibitem[Author, Year]{key}` hand-set
+to render `(Author, Year)` in text — not the numbered `sagev`/Vancouver style used
+in an earlier draft.
 
 ---
 
@@ -79,7 +87,9 @@ en passant; alpha–beta search; transposition table; chess endgames
   bibliography is inline (`thebibliography`), so no `.bib`/BibTeX run is needed.
 - `pawngame_sage.pdf` — the compiled manuscript; this single PDF is what to upload
   for a free-format initial submission (figures and tables are embedded).
-- `sagej.cls`, `SageV.bst`, `SageH.bst` — the SAGE class and reference styles.
+- `sagej.cls` — the SAGE class (loaded with the `sageapa` option; `mslapa`, which it
+  requires, ships in a standard TeX Live install). `SageV.bst`/`SageH.bst` are not
+  used (no BibTeX — the bibliography is hand-set for APA).
 - `cover_letter.md` — cover letter (convert to PDF/DOCX as the portal requires).
 - Result artifacts under `../gcp/results/`: `results.txt` and `pass_results.txt`
   (solve values/sizes/times), `stockfish_playtest.txt` / `pass_sf_local.txt`
@@ -88,8 +98,9 @@ en passant; alpha–beta search; transposition table; chess endgames
   the pass variant and the revised chess section and is out of date.
 
 ## Notes before uploading
-- Confirm the reference style ICGA currently mandates (SAGE offers Harvard/Vancouver/
-  APA); this version uses numbered (Vancouver, `sagev`). Switch the class option to
-  `sageh` (Harvard) if the guidelines require author–year.
-- ScholarOne wants a single manuscript file with figures/tables embedded (both
-  provided PDFs already embed everything).
+- Reference style confirmed as APA (see above) — resolved, no action needed.
+- ScholarOne wants a single manuscript file with figures/tables embedded (the
+  provided PDF already embeds everything).
+- The `©The Author(s) 0000` placeholder in the PDF header is expected: `sagej.cls`
+  leaves `\volumeyear` at its default until SAGE production sets it at acceptance;
+  there is no author-facing macro to fill it in pre-acceptance.
