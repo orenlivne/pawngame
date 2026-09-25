@@ -26,28 +26,21 @@ required at revision/acceptance. Both versions are provided in this folder (see
   draws), with the n=8 draw recorded as a conjecture (its table exceeds the machine).
 
 ## Abstract
-The pawn game is chess played with pawns only: each side starts with n pawns on its
-second rank, pawns move and capture as in chess (including the initial double step
-and en passant), and a player wins by advancing a pawn to the far rank, by capturing
-every enemy pawn, or by leaving the opponent with no legal move. We solve the game
-exactly for n = 1..8 pawns per side (left-justified for n < 8) under two rulesets
-that differ only in the treatment of a player with no legal move: a loss (the game's
-stated rule) or a draw (chess stalemate). Under the loss rule the game is finite and
-drawless, and the full eight-pawn game is a first-player win; White wins for
-n = 6,7,8 and for n = 4, while Black wins for n = 1,2,3,5. We give the outcomes under
-both rulesets, the optimal opening moves, and the winning technique. En passant
-proves essential rather than incidental: removing it flips four of the sixteen
-values — every White win under the chess-stalemate rule (n = 4,6,8) and the
-seven-pawn game under the game's rule. The solver combines a bitboard search with a
-proved passed-pawn evaluator that settles many positions without expanding them,
-board symmetries, a packed transposition table, and a lock-free parallel search;
-correctness rests on fuzzing move generation against an independent engine and
-cross-validating every shortcut against unpruned search, and is further stress-tested
-by a play-test in which the tablebase never loses to Stockfish from a non-losing
-side. We also solve a variant in which a player may pass, but not twice running:
-there the game is a first-player win under the stated rule (n <= 8) and a draw under
-chess stalemate (verified for n <= 7, conjectured beyond), showing the outcomes to be
-governed by zugzwang. A section aimed at chess players interprets the solution.
+(183 words — under the journal's 200-word limit)
+
+The pawn game—chess with pawns only—is solved exactly for n = 1,...,8 pawns per
+side under two rulesets differing only in how a player with no legal move is
+scored: a loss (the stated rule) or a draw (chess stalemate). The game is finite;
+under the loss rule it is drawless, and the eight-pawn game is a first-player win,
+as are n = 4,6,7, while Black wins n = 1,2,3,5. We give the outcomes, optimal
+openings, and winning technique—an unstoppable outside passed pawn—under both
+rulesets, and show en passant is essential: disabling it flips four of the sixteen
+values. The solver combines a bitboard search with a proved passed-pawn evaluator,
+board symmetries, a packed transposition table, and a lock-free parallel search,
+verified against an independent engine, unpruned search, and a Stockfish play-test
+the tablebase never loses. A pass variant—where a player may pass but not twice
+running—is a first-player win under the stated rule (n <= 8) and a draw under chess
+stalemate (n <= 7, conjectured beyond), showing outcomes governed by zugzwang.
 
 (Authoritative abstract text: copy from the compiled `pawngame_sage.pdf`, which is
 kept in sync with `pawngame_sage.tex`.)
