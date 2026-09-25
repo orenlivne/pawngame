@@ -12,3 +12,5 @@ Code, tests, and all result data: https://github.com/orenlivne/pawngame
 Submitted to the ICGA Journal. Not on arXiv — endorsement requirements there have gotten steep enough that I'm going straight to peer review instead.
 
 #chess #combinatorialgametheory #computerscience #gamesolving
+
+[Image: linkedin_post_image.png — the 8-pawn starting position, White to move]
