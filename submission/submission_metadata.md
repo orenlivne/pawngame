@@ -83,13 +83,19 @@ en passant; alpha–beta search; transposition table; chess endgames
 
 ## Files in this submission folder
 - `pawngame_sage.tex` — **the authoritative manuscript**, in the SAGE `sagej` house
-  style (compiles to a 10-page PDF with `pdflatex`; needs `sagej.cls`, included). The
-  bibliography is inline (`thebibliography`), so no `.bib`/BibTeX run is needed.
-- `pawngame_sage.pdf` — the compiled manuscript; this single PDF is what to upload
-  for a free-format initial submission (figures and tables are embedded).
-- `sagej.cls` — the SAGE class (loaded with the `sageapa` option; `mslapa`, which it
-  requires, ships in a standard TeX Live install). `SageV.bst`/`SageH.bst` are not
-  used (no BibTeX — the bibliography is hand-set for APA).
+  style (compiles to a 10-page PDF with `pdflatex`; needs `sagej.cls` +
+  `mslapa.sty` + the 11 `diag-*.pdf` figure files, all included). The bibliography
+  is inline (`thebibliography`), so no `.bib`/BibTeX run is needed.
+- `pawngame_sage.pdf` — the compiled manuscript; upload this alone for a
+  free-format initial submission (figures/tables embedded).
+- `sagej.cls`, `mslapa.sty` — required style files (`mslapa` is what the `sageapa`
+  reference-style option loads). `SageV.bst`/`SageH.bst` are not used (no BibTeX —
+  the bibliography is hand-set for APA).
+- `diag-*.pdf` (11 files) — the manuscript's figures/diagrams, **pre-rendered**
+  from the same FEN strings with `xskak`/`chessboard` and included via
+  `\includegraphics`, rather than drawn live in the document. This removes the
+  `xskak`/`chessboard`/`tikz` dependency from the `.tex` entirely — see "LaTeX
+  upload" note below for why.
 - `cover_letter.md` — cover letter (convert to PDF/DOCX as the portal requires).
 - Result artifacts under `../gcp/results/`: `results.txt` and `pass_results.txt`
   (solve values/sizes/times), `stockfish_playtest.txt` / `pass_sf_local.txt`
@@ -98,7 +104,23 @@ en passant; alpha–beta search; transposition table; chess endgames
   the pass variant and the revised chess section and is out of date.
 
 ## Notes before uploading
-- Reference style confirmed as APA (see above) — resolved, no action needed.
+- **LaTeX upload (ScholarOne "LaTeX Main Document" + "LaTeX Supplementary File"
+  flow):** upload `pawngame_sage.tex` as the main document, and `sagej.cls`,
+  `mslapa.sty`, and all 11 `diag-*.pdf` files as supplementary files. Earlier the
+  `.tex` used `xskak`/`chessboard` (built on `tikz`) to draw the chess diagrams
+  live; ScholarOne's compile server rejected it ("File will not display in
+  proof") — their LaTeX environment is documented to lack even some common
+  packages (their own FAQ cites missing `rotating.sty`/`textcase.sty`), and
+  `xskak`/`chessboard` is a niche package needing its own chess-piece fonts, the
+  likely single point of failure. Fixed by pre-rendering all 11 diagrams to PDF
+  locally and swapping to plain `\includegraphics` — verified by compiling
+  `pawngame_sage.tex` + `sagej.cls` + `mslapa.sty` + the 11 `diag-*.pdf` files
+  alone, in a bare directory with nothing else on the TeX search path: compiles
+  clean, all figures pixel-identical to the originals. If ScholarOne's proof
+  generation still fails after this, upload `pawngame_sage.pdf` as a
+  free-format submission instead (skip the LaTeX-file flow entirely) — the PDF
+  route is officially supported for initial submission and sidesteps their
+  compiler altogether.
 - ScholarOne wants a single manuscript file with figures/tables embedded (the
   provided PDF already embeds everything).
 - The `©The Author(s) 0000` placeholder in the PDF header is expected: `sagej.cls`

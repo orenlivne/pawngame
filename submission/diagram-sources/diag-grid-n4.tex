@@ -1,0 +1,9 @@
+\documentclass[border=1pt]{standalone}
+\usepackage{xskak}
+\newcommand{\pg}[1]{\chessboard[setfen={#1}, showmover=false, boardfontsize=13pt, label=false]}
+\newcommand{\pgs}[1]{\chessboard[setfen={#1}, showmover=false, boardfontsize=7pt, label=false]}
+\newcommand{\pgsm}[2]{\chessboard[setfen={#1}, showmover=false, boardfontsize=7pt,
+  label=false, pgfstyle=straightmove, color=red, linewidth=0.12em, markmoves={#2}]}
+\begin{document}
+\pgsm{8/2pp4/8/Pp6/8/8/P1PP4/8 w - b6 0 1}{a5-b6}
+\end{document}

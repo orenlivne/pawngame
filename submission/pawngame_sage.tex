@@ -1,8 +1,6 @@
 \documentclass[Afour,sageapa,times]{sagej}
 
 \usepackage{booktabs}
-\usepackage{tikz}
-\usepackage{xskak}      % chess diagrams from FEN (loads the chessboard package)
 \usepackage{siunitx}
 \sisetup{group-separator={,},group-minimum-digits=4}
 \usepackage[hidelinks]{hyperref}
@@ -66,12 +64,9 @@ capture before the passer even needs to promote.}
 \newcommand{\pvDrawVII}{1.\,a4 c5 2.\,e4 e5 3.\,a5 c4 4.\,g3 b6 5.\,axb6 axb6 6.\,f4 f5 7.\,exf5 exf4 8.\,gxf4 b5 9.\,f6 gxf6 10.\,f5 c3 11.\,bxc3 d5 12.\,d4 b4 13.\,cxb4}
 \newcommand{\pvDrawVIII}{1.\,b4 a5 2.\,bxa5 b5 3.\,axb6\,e.p. cxb6 4.\,a4 b5 5.\,axb5 d5 6.\,b6 d4 7.\,b7 d3 8.\,cxd3 e5 9.\,b8$\ddagger$}
 
-% pawn-game diagrams from a (kingless) FEN: normal and small (for the grid)
-\newcommand{\pg}[1]{\chessboard[setfen={#1}, showmover=false, boardfontsize=13pt, label=false]}
-\newcommand{\pgs}[1]{\chessboard[setfen={#1}, showmover=false, boardfontsize=7pt, label=false]}
-% small board with a red move-arrow (#2 = e.g. a5-b6)
-\newcommand{\pgsm}[2]{\chessboard[setfen={#1}, showmover=false, boardfontsize=7pt,
-  label=false, pgfstyle=straightmove, color=red, linewidth=0.12em, markmoves={#2}]}
+% Board diagrams are pre-rendered PDFs (built locally with xskak/chessboard from
+% the same FENs and included via \includegraphics) rather than drawn live in this
+% document, so the manuscript has no chessboard/tikz dependency at compile time.
 
 \setcounter{secnumdepth}{3}   % sagej.cls defaults to -2 (no section numbers), which
                                % left every "Section~\ref{...}" / "Appendix~\ref{...}"
@@ -156,7 +151,7 @@ chess~\cite{pawngame}.
 
 \begin{figure}[t]
 \centering
-\pg{8/pppppppp/8/8/8/8/PPPPPPPP/8 w - - 0 1}
+\includegraphics{diag-start.pdf}
 \caption{The eight-pawn starting position. White is to move. For $n<8$ the two
 phalanxes occupy the leftmost $n$ files.}
 \label{fig:start}
@@ -313,7 +308,7 @@ settled without expanding it.
 
 \begin{figure}[t]
 \centering
-\pg{8/6p1/8/8/1P6/8/8/8 w - - 0 1}
+\includegraphics{diag-race.pdf}
 \caption{A position settled by Theorem~\ref{thm:race} without search. White's
 passer on $b4$ is unstoppable and promotes in four of White's moves ($a=4$);
 Black's $g$-pawn needs at least five even using its double step ($c_b=5$). Since
@@ -472,16 +467,16 @@ its value is decided under both rules.
 \renewcommand{\arraystretch}{1.0}
 \newcommand{\gl}[1]{\parbox[t]{0.42\linewidth}{\centering\footnotesize #1}}
 \begin{tabular}{cc}
-\pgs{8/8/8/p7/P7/8/8/8 w - - 0 1} & \pgsm{8/1p6/8/p7/PP6/8/8/8 b - - 0 1}{a5-b4} \\
+\includegraphics{diag-grid-n1.pdf} & \includegraphics{diag-grid-n2.pdf} \\
 \gl{$n=1$\quad loss: Black,\ draw: $\tfrac12$\\ White to move is stalemated} &
 \gl{$n=2$\quad loss/draw: Black\\ $2\ldots$axb4 and Black's b-pawn queens} \\[6pt]
-\pgs{8/8/8/p1p5/P1P5/8/8/8 b - - 0 1} & \pgsm{8/2pp4/8/Pp6/8/8/P1PP4/8 w - b6 0 1}{a5-b6} \\
+\includegraphics{diag-grid-n3.pdf} & \includegraphics{diag-grid-n4.pdf} \\
 \gl{$n=3$\quad loss: Black,\ draw: $\tfrac12$\\ chess rule: this blockade stalemates Black ($\tfrac12$), saving White; under the game's rule Black instead wins on a different line, by capturing White's pawns} &
 \gl{$n=4$\quad loss/draw: White\\ axb6\,e.p.\ makes the outside passer} \\[6pt]
-\pgs{8/8/p2p4/P7/8/4p3/8/8 w - - 0 1} & \pgsm{8/2pppp2/8/1pP5/3P4/P7/P3PP2/8 w - b6 0 1}{c5-b6} \\
+\includegraphics{diag-grid-n5.pdf} & \includegraphics{diag-grid-n6.pdf} \\
 \gl{$n=5$\quad loss: Black,\ draw: $\tfrac12$\\ White to move is stalemated} &
 \gl{$n=6$\quad loss/draw: White\\ cxb6\,e.p.\ makes the outside passer} \\[6pt]
-\pgs{8/8/6p1/4P1P1/8/1P6/8/8 b - - 0 1} & \pgsm{8/2pppppp/8/Pp6/8/8/P1PPPPPP/8 w - b6 0 1}{a5-b6} \\
+\includegraphics{diag-grid-n7.pdf} & \includegraphics{diag-grid-n8.pdf} \\
 \gl{$n=7$\quad loss: White,\ draw: $\tfrac12$\\ Black is stalemated---though White is three pawns to one} &
 \gl{$n=8$\quad loss/draw: White\\ axb6\,e.p.\ makes the outside passer} \\
 \end{tabular}
@@ -560,7 +555,7 @@ win is the clearest miniature (Figure~\ref{fig:break}): \nEightLossPVfour
 
 \begin{figure}[t]
 \centering
-\pg{8/8/1P6/3p4/8/8/2PP4/8 b - - 0 1}
+\includegraphics{diag-break.pdf}
 \caption{The asymmetry that wins. Position from the four-pawn game after
 \texttt{1.b4 a5 2.bxa5 b5 3.axb6}\,e.p.\ \texttt{cxb6 4.a4 b5 5.axb5 d5 6.b6}.
 White's $b$-pawn is passed---no Black pawn stands on the $a$-, $b$-, or $c$-file
